@@ -1,0 +1,60 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+    <!-- Tider Column -->
+    <ng-container matColumnDef="Tider">
+      <th mat-header-cell *matHeaderCellDef> Tider </th>
+      <td mat-cell *matCellDef="let element"> {{element.time}} </td>
+    </ng-container>
+
+    <!-- Måndag Column -->
+    <ng-container matColumnDef="Måndag">
+      <th mat-header-cell *matHeaderCellDef> Måndag </th>
+      <ng-container>
+        <td mat-cell *matCellDef="let element"></td>
+      </ng-container>
+    </ng-container>
+
+    <!-- Tisdag Column -->
+    <ng-container matColumnDef="Tisdag">
+      <th mat-header-cell *matHeaderCellDef> Tisdag </th>
+      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container>
+
+    <!-- Onsdag Column -->
+    <ng-container matColumnDef="Onsdag">
+      <th mat-header-cell *matHeaderCellDef> Onsdag </th>
+      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container>
+
+    <!-- Torsdag Column -->
+    <ng-container matColumnDef="Torsdag">
+      <th mat-header-cell *matHeaderCellDef> Torsdag </th>
+      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container>
+
+    <!-- Fredag Column -->
+    <ng-container matColumnDef="Fredag">
+      <th mat-header-cell *matHeaderCellDef> Fredag </th>
+      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container>
+
+    <!-- Lördag Column -->
+    <ng-container matColumnDef="Lördag">
+      <th mat-header-cell *matHeaderCellDef> Lördag </th>
+      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container>
+
+    <!-- Söndag Column -->
+    <ng-container matColumnDef="Söndag">
+      <th mat-header-cell *matHeaderCellDef> Söndag </th>
+      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container>
+  
+  
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>

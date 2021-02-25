@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
     selector: 'app-card',
     template: `
     <div>
-        Card: 
+        Card 
     </div>`,
     styles: [`
     :host {
