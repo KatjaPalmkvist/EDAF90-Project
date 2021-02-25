@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 
+
 require("firebase/auth");
 require("firebase/database");
 var firebaseConfig = {
@@ -20,13 +21,19 @@ type Credentials = {
     password: string
 }
 
+type Booking = {
+    sport: string,
+    time: string, 
+    date: string
+}
+
 
 export const rest: {register(credentials: Credentials): any, 
                     login(credentials: Credentials): any, 
                     logout(): any,
                     isSignedIn(): any, 
-                    getBookings(sport: string): any[], 
-                    getUserBookings(userid: string): any[]} = {
+                    getBookings(sport: string): Object, 
+                    getUserBookings(userid: string): Object} = {
     register: async (credentials) => {
         let result = firebase.auth().createUserWithEmailAndPassword(credentials.username, credentials.password)
             .then((userCredentials: any) => {
@@ -75,20 +82,27 @@ export const rest: {register(credentials: Credentials): any,
     }, 
 
 
-    getBookings: (sport) => {
-        let bookings=  firebase.database().ref("bookings").child(sport).get().then((snapshot: any) => {
-            if(snapshot.exists())
-                console.log(snapshot.val());
-            else 
-                console.log("No data at bookings");
-        });
-        return [];
+    getBookings: async (sport) => {
+        let bookings =  firebase.database().ref("bookings").child(sport).get()
+            .then((snapshot: any) => {
+                if(snapshot.exists())
+                    return snapshot.val();
+                else 
+                    console.log("No data at bookings");
+            });
+        return await bookings;
     }, 
 
-    getUserBookings: (userid) => {
-        return [];
-    } 
- 
+    getUserBookings: async (userid) => {
+        let bookings = firebase.database().ref("user_bookings").child(userid).get()
+            .then((snapshot: any) => {
+                if(snapshot.exists())
+                    return snapshot.val();
+                else 
+                    console.log("No data at user bookings")
+            });
+        return await bookings;
+    }
 
 
 
