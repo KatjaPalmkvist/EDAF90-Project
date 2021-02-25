@@ -41,9 +41,7 @@ base.rest = {
           }).catch((error) => {
             throw error.message;
           });
-    },
-
-    getBookings()
+    }
 
 
 }
