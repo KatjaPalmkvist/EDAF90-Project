@@ -10,13 +10,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CardComponent } from './card-component/card.component';
 import { BookingViewComponent } from './booking-view/booking-view.component';
 
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationBarComponent,
     CardComponent,
-    BookingViewComponent
+    BookingViewComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
