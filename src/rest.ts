@@ -26,14 +26,26 @@ type Credentials = {
     password: string
 }
 
+type User = {
+    email: string, 
+    uid: string
+}
+
+type Booking = {
+    date: string,
+    time: string,
+    sport: Sport
+}
+
 
 
 export const rest: {register(credentials: Credentials): Promise<Object>, 
-                    login(credentials: Credentials): Promise<Object>, 
+                    login(credentials: Credentials): Promise<User>, 
                     logout(): Promise<boolean>,
-                    getCurrentUser(): Object, 
+                    getCurrentUser(): User, 
                     getBookings(sport: Sport): Promise<Object>, 
-                    getUserBookings(userid: string): Promise<Object>} = {
+                    getUserBookings(uid: string): Promise<Object>, 
+                    setBooking(uid:string, booking: Booking): Promise<boolean>} = {
     register: async (credentials) => {
         let result = firebase.auth().createUserWithEmailAndPassword(credentials.username, credentials.password)
             .then((userCredentials: any) => {
@@ -55,11 +67,12 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
             .then((userCredentials: {user:any}) => {
                 console.log("User signed in")
                 let user = userCredentials.user;
-                return user;
+                const currentUser: User = user ? {email: user.email || "", uid: user.uid || ""} : {email:"", uid:""};
+                return currentUser;
             })
             .catch((error: any) => {
                 console.log("User don't exist");
-                return {};
+                return {email:"", uid:""};
             })
         
         return await result;
@@ -77,10 +90,11 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
         return await result;
     }, 
 
+
     getCurrentUser: () => {
-        const currentUser = firebase.auth().currentUser;
-        const user: User = currentUser ? {email: currentUser.email || "", uid: currentUser.uid || ""} : {};
-        return user;
+        const user = firebase.auth().currentUser;
+        const currentUser: User = user ? {email: user.email || "", uid: user.uid || ""} : {email:"", uid:""};
+        return currentUser;
     }, 
 
 
@@ -96,8 +110,8 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
         return await bookings;
     }, 
 
-    getUserBookings: async (userid) => {
-        let bookings = firebase.database().ref("user_bookings").child(userid).get()
+    getUserBookings: async (uid) => {
+        let bookings = firebase.database().ref("user_bookings").child(uid).get()
             .then((snapshot: any) => {
                 if(snapshot.exists())
                     return snapshot.val();
@@ -106,8 +120,33 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
                     return {};
             });
         return await bookings;
-    }
+    }, 
 
+    setBooking: async (uid, booking) => {
+        let result = firebase.database().ref("bookings/"+booking.sport).child(booking.date).push({time: booking.time})
+                        .then(res => {
+                            if(res.key){
+                                firebase.database().ref("user_bookings/" + uid)
+                                    .push({...booking, booking_ref: res.key})
+                                    .then(res => {
+                                        if (res.key) {
+                                            return true;
+                                        } 
+                                        console.log("Booking not added, something went wring")
+                                        return false;
+                                    })
+                            }
+                            console.log("Something went wrong during the booking. Please try again!")
+                            return false
+                            
+                        })
+                        .catch(err => {
+                            console.log(err.message);
+                            return false;
+                        });
+        
+        return await result;
+    }
 
 
 
