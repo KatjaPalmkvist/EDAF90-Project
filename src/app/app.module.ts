@@ -10,18 +10,21 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {BookingTableComponent} from './booking-table/booking-table.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
 
 
 
 
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationBarComponent,
     LoginComponent,
-    BookingTableComponent
+    BookingTableComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,8 @@ import { LoginComponent } from './login/login.component';
     FlexLayoutModule,
     MatTableModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
