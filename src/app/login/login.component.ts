@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    console.log("test", this.userName, this.password);
+    console.log(this.userName, this.password);
   }
 
 }
