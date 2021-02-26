@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 
+
 require("firebase/auth");
 require("firebase/database");
 var firebaseConfig = {
