@@ -1,3 +1,4 @@
+import { keyframes } from "@angular/animations";
 import { resolve } from "@angular/compiler-cli/src/ngtsc/file_system";
 import firebase from "firebase/app";
 import { ObjectUnsubscribedError } from "rxjs";
@@ -105,11 +106,23 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
     getBookings: async (sport) => {
         let bookings =  firebase.database().ref("bookings").child(sport).get()
             .then((snapshot: any) => {
-                if(snapshot.exists())
-                    return snapshot.val();
-                else 
+                if(snapshot.exists()) {
+                    let snap: {date: string, time: string}[] = Object.values(snapshot.val());
+                    var result: {[date: string]: string[]} = {}; 
+                    snap.forEach(obj => {
+                        if (result[obj.date]) {
+                            result[obj.date].push(obj.time)
+                        } else {
+                            result[obj.date] = [obj.time];
+                        }
+                    });
+                    
+                    return result;
+                    
+                } else {
                     console.log("No data at bookings");
                     return {}
+                } 
             });
         return await bookings;
     }, 
@@ -117,20 +130,35 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
     getUserBookings: async (uid) => {
         let bookings = firebase.database().ref("user_bookings").child(uid).get()
             .then((snapshot: any) => {
-                if(snapshot.exists())
-                    return snapshot.val();
-                else 
+                if(snapshot.exists()) {
+                    let snap: {booking_ref: string, sport: string, date: string, time: string}[] = Object.values(snapshot.val());
+                    var result: {[date: string]: {[sport: string]: string[]}} = {}; 
+                    snap.forEach(obj => {
+                        if (result[obj.date]) {
+                            if (result[obj.date][obj.sport]) {
+                                result[obj.date][obj.sport].push(obj.time)
+                            } else {
+                                result[obj.date][obj.sport] = [obj.time];
+                            }
+                        } else {
+                            result[obj.date] = {[obj.sport]: [obj.time]}                            
+                        }
+                    });
+                    
+                    return result;
+                } else { 
                     console.log("No data at user bookings")
                     return {};
+                }
             });
         return await bookings;
     }, 
 
     setBooking: async (uid, booking) => {
-        let exists = firebase.database().ref("bookings/" + booking.sport).child(booking.date).get().then(dayBookings => {
+        let exists = firebase.database().ref("bookings/" + booking.sport).get().then(dayBookings => {
             if (dayBookings.exists()) {
-                let bookings: {time: string}[] = Object.values(dayBookings.val())
-                if (bookings.find(o => o.time === booking.time)) {
+                let bookings: {time: string, date: string}[] = Object.values(dayBookings.val())
+                if (bookings.find(o => o.time === booking.time && o.date === booking.date)) {
                     return true;
                 } 
             }
@@ -139,7 +167,7 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
 
         let result = exists.then(exist => {
             if (!exist) {
-                firebase.database().ref("bookings/"+booking.sport).child(booking.date).push({time: booking.time})
+                firebase.database().ref("bookings/"+booking.sport).push({date: booking.date, time: booking.time})
                         .then(res => {
                             if(res.key){
                                 firebase.database().ref("user_bookings/" + uid)
