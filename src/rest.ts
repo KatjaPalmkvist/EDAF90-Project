@@ -1,7 +1,4 @@
-import { keyframes } from "@angular/animations";
-import { resolve } from "@angular/compiler-cli/src/ngtsc/file_system";
 import firebase from "firebase/app";
-import { ObjectUnsubscribedError } from "rxjs";
 
 
 require("firebase/auth");
@@ -115,10 +112,8 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
                         } else {
                             result[obj.date] = [obj.time];
                         }
-                    });
-                    
+                    }); 
                     return result;
-                    
                 } else {
                     console.log("No data at bookings");
                     return {}
@@ -214,7 +209,7 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
                 firebase.database().ref("user_bookings/" + uid).child(bookingRef.user_booking).remove().then(r => {
                     console.log(r)
                 })
-                firebase.database().ref("bookings/" + booking.sport + "/" + booking.date).child(bookingRef.booking).remove().then(r => {
+                firebase.database().ref("bookings/" + booking.sport).child(bookingRef.booking).remove().then(r => {
                     console.log(r)
                 })
                 return true;
