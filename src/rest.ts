@@ -1,4 +1,6 @@
+import { resolve } from "@angular/compiler-cli/src/ngtsc/file_system";
 import firebase from "firebase/app";
+import { ObjectUnsubscribedError } from "rxjs";
 
 
 require("firebase/auth");
@@ -45,7 +47,9 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
                     getCurrentUser(): User, 
                     getBookings(sport: Sport): Promise<Object>, 
                     getUserBookings(uid: string): Promise<Object>, 
-                    setBooking(uid:string, booking: Booking): Promise<boolean>} = {
+                    setBooking(uid:string, booking: Booking): Promise<boolean>,
+                    removeBooking(uid: string, booking: Booking): Promise<boolean>
+                } = {
     register: async (credentials) => {
         let result = firebase.auth().createUserWithEmailAndPassword(credentials.username, credentials.password)
             .then((userCredentials: any) => {
@@ -123,7 +127,19 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
     }, 
 
     setBooking: async (uid, booking) => {
-        let result = firebase.database().ref("bookings/"+booking.sport).child(booking.date).push({time: booking.time})
+        let exists = firebase.database().ref("bookings/" + booking.sport).child(booking.date).get().then(dayBookings => {
+            if (dayBookings.exists()) {
+                let bookings: {time: string}[] = Object.values(dayBookings.val())
+                if (bookings.find(o => o.time === booking.time)) {
+                    return true;
+                } 
+            }
+            return false;
+        });
+
+        let result = exists.then(exist => {
+            if (!exist) {
+                firebase.database().ref("bookings/"+booking.sport).child(booking.date).push({time: booking.time})
                         .then(res => {
                             if(res.key){
                                 firebase.database().ref("user_bookings/" + uid)
@@ -143,8 +159,43 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
                         .catch(err => {
                             console.log(err.message);
                             return false;
-                        });
+                        })
+                    }
+                    return false;
+                });
         
+        return await result;
+    }, 
+
+    removeBooking: async (uid, booking) => {
+        let bookingRefExists = firebase.database().ref("user_bookings/" + uid).get().then(res => {
+            if (res.exists()) {
+                let userBookings: {id: {booking_ref: string, time: string, sport: string, date: string}} = res.val()
+                let bookings = Object.values(userBookings)
+                
+                let bookingExist = bookings.findIndex(o => (o.time === booking.time && o.date === booking.date && o.sport === booking.sport))
+                if (bookingExist + 1) {
+                    return {user_booking: Object.keys(userBookings)[bookingExist], booking: bookings[bookingExist].booking_ref};
+                } 
+            }
+            return {user_booking: "", booking: ""};
+        });
+
+        let result = bookingRefExists.then(bookingRef => {
+            if (bookingRef.user_booking && bookingRef.booking) {
+                firebase.database().ref("user_bookings/" + uid).child(bookingRef.user_booking).remove().then(r => {
+                    console.log(r)
+                })
+                firebase.database().ref("bookings/" + booking.sport + "/" + booking.date).child(bookingRef.booking).remove().then(r => {
+                    console.log(r)
+                })
+                return true;
+
+            }
+            console.log("Data could not be removed")
+            return false;
+        })
+
         return await result;
     }
 
