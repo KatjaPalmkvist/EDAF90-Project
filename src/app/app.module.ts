@@ -7,7 +7,12 @@ import { NavigationBarComponent } from './navbar/navbar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {BookingTableComponent} from './booking-table/booking-table.component'
+import {BookingTableComponent} from './booking-table/booking-table.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+
+
+
 
 import { LoginComponent } from './login/login.component';
 
@@ -24,7 +29,9 @@ import { LoginComponent } from './login/login.component';
     NgbModule,
     MDBBootstrapModule.forRoot(),
     FlexLayoutModule,
-    MatTableModule
+    MatTableModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
