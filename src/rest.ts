@@ -3,7 +3,7 @@ import firebase from "firebase/app";
 
 require("firebase/auth");
 require("firebase/database");
-var firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyCCwlDhG2og5UMLeBqNubMjwrMsxHj8HDI",
     authDomain: "edaf-90.firebaseapp.com",
     databaseURL: "https://edaf-90-default-rtdb.europe-west1.firebasedatabase.app",
@@ -13,26 +13,26 @@ var firebaseConfig = {
     appId: "1:815688758631:web:bed1f352320bd8e122abc2"
   };
   // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
+export enum Sport {
+    badminton = "badminton", 
+    tennis = "tennis",
+    padel = "padel"
+}
 
 type Credentials = {
     username: string, 
     password: string
 }
 
-type Booking = {
-    sport: string,
-    time: string, 
-    date: string
-}
 
 
 export const rest: {register(credentials: Credentials): Promise<Object>, 
                     login(credentials: Credentials): Promise<Object>, 
                     logout(): Promise<boolean>,
                     getCurrentUser(): Object, 
-                    getBookings(sport: string): Promise<Object>, 
+                    getBookings(sport: Sport): Promise<Object>, 
                     getUserBookings(userid: string): Promise<Object>} = {
     register: async (credentials) => {
         let result = firebase.auth().createUserWithEmailAndPassword(credentials.username, credentials.password)
@@ -78,8 +78,9 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
     }, 
 
     getCurrentUser: () => {
-        const user = firebase.auth().currentUser;
-        return user ? {email: user.email, uid: user.uid} : {};
+        const currentUser = firebase.auth().currentUser;
+        const user: User = currentUser ? {email: currentUser.email || "", uid: currentUser.uid || ""} : {};
+        return user;
     }, 
 
 
@@ -106,6 +107,8 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
             });
         return await bookings;
     }
+
+
 
 
 
