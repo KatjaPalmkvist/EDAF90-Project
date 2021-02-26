@@ -11,7 +11,7 @@ const ELEMENT_DATA: BookingElement[] = [
   {position: 2, time: "06-07", isBooked: false},
   {position: 3, time: "07-08", isBooked: false},
   {position: 4, time: "08-09", isBooked: false},
-  {position: 5, time: "10-11", isBooked: false},
+  {position: 5, time: "10-11", isBooked: true},
   {position: 6, time: "11-12", isBooked: false},
   {position: 7, time: "12-13", isBooked: false},
   {position: 8, time: "13-14", isBooked: false},
@@ -30,8 +30,9 @@ const ELEMENT_DATA: BookingElement[] = [
  * @title Basic use of `<table mat-table>`
  */
 @Component({
-  selector: 'table-basic-example',
-  templateUrl: 'booking-table.component.html',
+  selector: 'table-basic-example', 
+  styleUrls: ['booking-table.component.css'],
+  templateUrl: 'booking-table.component.html'
 })
 export class BookingTableComponent {
   displayedColumns: string[] = ['Tider', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag', 'Söndag'];

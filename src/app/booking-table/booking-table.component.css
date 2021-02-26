@@ -1,0 +1,39 @@
+
+.mat-cell{
+    font-size:17px;
+    font-family: Verdana,Sans-Serif;
+    display: table-cell;
+    height: 48px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    border-left: 2px solid rgba(0, 0, 0, 0.12);
+    border-right: 2px solid rgba(0, 0, 0, 0.12);
+    background-color: #f5cc7a;
+    text-align: center !important;
+    vertical-align: middle;
+    }
+
+.booked {
+    background-color: #F14545;
+    color: black;
+}
+
+.mat-header-cell {
+    font-size:17px;
+    font-family: Verdana,Sans-Serif;
+    height: 48px;
+    text-align: center !important;
+    vertical-align: middle;
+}
+
+.available {
+    background-color: #6BE269;
+    color: white;
+}
+
+
+table {
+    width: 100%;
+}
+
+
