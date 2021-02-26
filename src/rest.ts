@@ -104,7 +104,6 @@ export const rest: {register(credentials: Credentials): any,
         return await bookings;
     }
 
-    
 
 
 }
