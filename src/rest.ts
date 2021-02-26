@@ -28,12 +28,12 @@ type Booking = {
 }
 
 
-export const rest: {register(credentials: Credentials): any, 
-                    login(credentials: Credentials): any, 
-                    logout(): any,
-                    isSignedIn(): any, 
-                    getBookings(sport: string): Object, 
-                    getUserBookings(userid: string): Object} = {
+export const rest: {register(credentials: Credentials): Promise<Object>, 
+                    login(credentials: Credentials): Promise<Object>, 
+                    logout(): Promise<boolean>,
+                    getCurrentUser(): Object, 
+                    getBookings(sport: string): Promise<Object>, 
+                    getUserBookings(userid: string): Promise<Object>} = {
     register: async (credentials) => {
         let result = firebase.auth().createUserWithEmailAndPassword(credentials.username, credentials.password)
             .then((userCredentials: any) => {
@@ -44,7 +44,7 @@ export const rest: {register(credentials: Credentials): any,
             })
             .catch((error: any) => { 
                 console.log(error.message);
-                return undefined;
+                return {};
             })
         
         return await result;
@@ -59,7 +59,7 @@ export const rest: {register(credentials: Credentials): any,
             })
             .catch((error: any) => {
                 console.log("User don't exist");
-                return undefined;
+                return {};
             })
         
         return await result;
@@ -77,8 +77,9 @@ export const rest: {register(credentials: Credentials): any,
         return await result;
     }, 
 
-    isSignedIn: () => {
-        return firebase.auth().currentUser;
+    getCurrentUser: () => {
+        const user = firebase.auth().currentUser;
+        return user ? {email: user.email, uid: user.uid} : {};
     }, 
 
 
@@ -89,6 +90,7 @@ export const rest: {register(credentials: Credentials): any,
                     return snapshot.val();
                 else 
                     console.log("No data at bookings");
+                    return {}
             });
         return await bookings;
     }, 
@@ -100,6 +102,7 @@ export const rest: {register(credentials: Credentials): any,
                     return snapshot.val();
                 else 
                     console.log("No data at user bookings")
+                    return {};
             });
         return await bookings;
     }
