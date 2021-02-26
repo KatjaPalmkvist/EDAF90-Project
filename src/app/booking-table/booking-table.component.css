@@ -1,0 +1,61 @@
+
+.mat-cell{
+    font-size:17px;
+    font-family: Verdana,Sans-Serif;
+    display: table-cell;
+    height: 48px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    border-left: 2px solid rgba(0, 0, 0, 0.12);
+    border-right: 2px solid rgba(0, 0, 0, 0.12);
+    background-color: #f5cc7a;
+    text-align: center !important;
+    vertical-align: middle;
+    width:20px;
+    
+}
+
+.booked {
+    background-color: #F14545;
+    color: black;
+}
+
+.booked:hover {
+    background-color: #8f3131;
+}
+
+.mat-header-cell {
+    font-size:17px;
+    font-family: Verdana,Sans-Serif;
+    height: 48px;
+    text-align: center !important;
+    vertical-align: middle;
+}
+
+.available {
+    background-color: #6BE269;
+    color: white;
+    cursor: pointer;
+}
+
+.available:hover {
+    background-color: #4ab348;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+
+.bookButton {
+    color: black;
+}
+
+#dropdownSports {
+    margin-bottom: 20px;
+    width:10%;
+    margin-left: 10%;
+    background-color: #7b7a7e ;
+    color: white;
+}
