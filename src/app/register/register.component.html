@@ -1,3 +1,4 @@
+<h1 class="jumbotron middle">Register Page</h1>
 <form action="action_page.php" method="post">
     <div class="container">
       <label for="uname"><b>Username</b></label>
@@ -5,11 +6,10 @@
   
       <label for="psw"><b>Password</b></label>
       <input type="password" placeholder="Enter Password" name="password" [(ngModel)]="password" required>
-  
-      <button type="submit" (click)="login()">Login</button>
-    </div>
-  
-    <div class="container" style="background-color:#f1f1f1">
-      <span class="psw"><a routerLink="/register">Register</a></span>
+    
+      <label for="psw"><b>Repeat password</b></label>
+      <input type="password" placeholder="Enter Password Again" name="repeat" [(ngModel)]="repeat" required>
+
+      <button type="submit" (click)="register()">Register</button>
     </div>
   </form>
