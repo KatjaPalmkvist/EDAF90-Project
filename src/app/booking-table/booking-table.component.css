@@ -11,7 +11,7 @@
     background-color: #f5cc7a;
     text-align: center !important;
     vertical-align: middle;
-    width:20px;
+    width: 30px;
     
 }
 
@@ -30,6 +30,7 @@
     height: 48px;
     text-align: center !important;
     vertical-align: middle;
+    width: 30px;
 }
 
 .available {
@@ -58,4 +59,18 @@ table {
     margin-left: 10%;
     background-color: #7b7a7e ;
     color: white;
+}
+
+::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
+    color:rgb(0, 0, 0);
+    font-size:17px;
+    text-decoration: solid;
+    background-color: #f5cc7a;
+    }
+    
+::ng-deep .mat-tab-list .mat-tab-labels {
+    color:rgb(0,0,0);
+    font-size:17px;
+    text-decoration: solid;
+    background-color: transparent;
 }

@@ -1,4 +1,6 @@
 import {Component} from '@angular/core';
+import {rest, Sport} from "../../rest";
+//import {Sports} from "src/rest";
 
 export interface BookingElement {
   position: number;
@@ -12,7 +14,7 @@ export interface BookingElement {
   isBookedSunday: boolean;
 }
 
-export interface Sport {
+export interface Sports {
   sport: string
 }
 
@@ -20,7 +22,7 @@ const ELEMENT_DATA: BookingElement[] = [
   {position: 1, time: "05-06", isBookedMonday: false, isBookedTuesday: false, isBookedWednesday: false, isBookedThursday:true, isBookedFriday: false, isBookedSaturday: false, isBookedSunday: true},
   {position: 2, time: "06-07", isBookedMonday: false, isBookedTuesday: true, isBookedWednesday: false, isBookedThursday:true, isBookedFriday: false, isBookedSaturday: false, isBookedSunday: true},
   {position: 3, time: "07-08", isBookedMonday: false, isBookedTuesday: true, isBookedWednesday: false, isBookedThursday:true, isBookedFriday: false, isBookedSaturday: false, isBookedSunday: true},
-  {position: 4, time: "08-09", isBookedMonday: false, isBookedTuesday: true, isBookedWednesday: false, isBookedThursday:true, isBookedFriday: false, isBookedSaturday: false, isBookedSunday: true},
+  {position: 4, time: "08-09", isBookedMonday: false, isBookedTuesday: true, isBookedWednesday: false, isBookedThursday:false, isBookedFriday: false, isBookedSaturday: false, isBookedSunday: true},
   {position: 5, time: "10-11", isBookedMonday: true, isBookedTuesday: true, isBookedWednesday: true, isBookedThursday:true, isBookedFriday: false, isBookedSaturday: false, isBookedSunday: true},
   {position: 6, time: "11-12", isBookedMonday: false, isBookedTuesday: true, isBookedWednesday: false, isBookedThursday:true, isBookedFriday: false, isBookedSaturday: false, isBookedSunday: true},
   {position: 7, time: "12-13", isBookedMonday: false, isBookedTuesday: true, isBookedWednesday: false, isBookedThursday:true, isBookedFriday: false, isBookedSaturday: false, isBookedSunday: true},
@@ -36,7 +38,7 @@ const ELEMENT_DATA: BookingElement[] = [
   {position: 17, time: "22-23", isBookedMonday: false, isBookedTuesday: true, isBookedWednesday: false, isBookedThursday:true, isBookedFriday: false, isBookedSaturday: false, isBookedSunday: true},
 ];
 
-const ELEMENT_DATA_SPORTS : Sport[] = [{sport: 'Badminton'}, {sport: 'Padel'}, {sport: 'Tennis'}];
+const ELEMENT_DATA_SPORTS : Sports[] = [{sport: 'Badminton'}, {sport: 'Padel'}, {sport: 'Tennis'}];
 
 /**
  * @title Basic use of `<table mat-table>`
@@ -53,7 +55,12 @@ export class BookingTableComponent {
 
 
   clicked() {
-
     console.log('hej');
+    this.getBooking(Sport.badminton)
   }
+
+  getBooking = (sport: Sport) => {
+    const bookings = rest.getBookings(sport).then(xs => console.log(xs))
+  }
+
 }
