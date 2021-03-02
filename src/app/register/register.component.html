@@ -1,15 +1,15 @@
-<h1 class="jumbotron middle">Register Page</h1>
+<h1 class="jumbotron">Registrera användare</h1>
 <form action="action_page.php" method="post">
     <div class="container">
-      <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="userName" [(ngModel)]="userName" required>
+      <label for="uname"><b></b></label>
+      <input type="text" placeholder="Användarnamn" name="userName" [(ngModel)]="userName" required>
   
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" [(ngModel)]="password" required>
+      <label for="psw"><b></b></label>
+      <input type="password" placeholder="Lösenord" name="password" [(ngModel)]="password" required>
     
-      <label for="psw"><b>Repeat password</b></label>
-      <input type="password" placeholder="Enter Password Again" name="repeat" [(ngModel)]="repeat" required>
+      <label for="psw"><b></b></label>
+      <input type="password" placeholder="Upprepa lösenord" name="repeat" [(ngModel)]="repeat" required>
 
-      <button type="submit" (click)="register()">Register</button>
+      <button type="submit" (click)="register()">Registrera</button>
     </div>
   </form>
