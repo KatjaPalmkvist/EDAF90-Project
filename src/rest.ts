@@ -43,6 +43,7 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
                     login(credentials: Credentials): Promise<User>, 
                     logout(): Promise<boolean>,
                     getCurrentUser(): User, 
+                    isLoggedIn(): Promise<boolean>,
                     getBookings(sport: Sport): Promise<Object>, 
                     getUserBookings(uid: string): Promise<Object>, 
                     setBooking(uid:string, booking: Booking): Promise<boolean>,
@@ -98,6 +99,19 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
         const currentUser: User = user ? {email: user.email || "", uid: user.uid || ""} : {email:"", uid:""};
         return currentUser;
     }, 
+
+    isLoggedIn: async () => {
+        return new Promise((resolve, reject) => {
+            const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+                unsubscribe();
+                if (user) {
+                    resolve(true);
+                } else {
+                    resolve(false);
+                }
+            }, reject)
+        })  
+    },
 
 
     getBookings: async (sport) => {

@@ -17,11 +17,14 @@ export class AuthGuard implements CanActivate {
     canActivate(
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-            if(!rest.getCurrentUser().uid) {
-                this.router.navigate(['/login']);
-                return false;
-            }
-            return true;
+            console.log(rest.getCurrentUser())
+            return rest.isLoggedIn().then(res => {
+                if (!res) {
+                    this.router.navigate(['/login']);
+                    return false;
+                }
+                return true;
+            })
         }
     
 }
