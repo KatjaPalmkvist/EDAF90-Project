@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { rest, Sport } from 'src/rest'
 
 @Component({
     selector: 'app-my-page',
@@ -9,5 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class MyPageComponent implements OnInit {
     constructor() { }
 
-    ngOnInit() { }
+    ngOnInit() {
+        console.log(rest.getCurrentUser())
+     }
 }
