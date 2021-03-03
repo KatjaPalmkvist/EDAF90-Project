@@ -4,12 +4,13 @@ import { BookingTableComponent } from './booking-table/booking-table.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { MyPageComponent } from './my-page/my-page.component';
+import { AuthGuard } from './shared/auth.guard';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'booking', component: BookingTableComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'mypage', component: MyPageComponent}
+  {path: 'mypage', component: MyPageComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
