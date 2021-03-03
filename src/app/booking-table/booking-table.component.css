@@ -11,7 +11,9 @@
     background-color: #f5cc7a;
     text-align: center !important;
     vertical-align: middle;
-    width: 30px;
+    width: 12.5%;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
     
 }
 
@@ -30,7 +32,9 @@
     height: 48px;
     text-align: center !important;
     vertical-align: middle;
-    width: 30px;
+    width: 12.5%;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
 }
 
 .available {
