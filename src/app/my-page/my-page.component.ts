@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { rest, Sport } from 'src/rest'
 
 @Component({
     selector: 'app-my-page',
@@ -6,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['my-page.component.css']
 })
 
-export class MyPageComponent implements OnInit {
-    constructor() { }
+export class MyPageComponent implements OnInit{
+    constructor() { 
+        
+    }
+    ngOnInit() {
 
-    ngOnInit() { }
+    }
 }

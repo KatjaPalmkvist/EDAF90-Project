@@ -1,142 +1,142 @@
-
- <select class="form-control" id="dropdownSports">
+<!-- <select class="form-control" id="dropdownSports">
   <option selected = "selected" disabled>Välj en sport</option>
   <option *ngFor="let elem of sports">{{elem.sport}}</option>
-</select>
+</select> -->
+
+<mat-tab-group mat-stretch-tabs (selectedTabChange)="clickedTab($event)">
+  <mat-tab label="Tennis"> Tennis </mat-tab>
+  <mat-tab label="Padel"> Padel </mat-tab>
+  <mat-tab label="Badminton"> Badminton </mat-tab>
+</mat-tab-group>
 
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-    <!--- Note that these columns can be defined in any order.
+  <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
-  
-    <!-- Tider Column -->
-    <ng-container matColumnDef="Tider">
-      <th mat-header-cell *matHeaderCellDef> Tider </th>
-      <td mat-cell *matCellDef="let element"> {{element.time}} </td>
-    </ng-container>
 
-    <!-- Måndag Column -->
-    <ng-container matColumnDef="Måndag">
-      <th mat-header-cell *matHeaderCellDef> Måndag </th>
-      <ng-container>
-        <td mat-cell *matCellDef="let element" [ngClass]="{
-          'available' : element.isBookedMonday === true,
-          'booked' : element.isBookedMonday === false
-       }">
-       <h3>
-        <div *ngIf="element.isBookedMonday===true; else elseBlock">Ledig tid!</div>
-        <ng-template #elseBlock>Bokad</ng-template>
-       </h3>
-      </td>
-      </ng-container>
-    </ng-container>
+  <!-- Tider Column -->
+  <ng-container matColumnDef="Tider">
+    <th mat-header-cell *matHeaderCellDef> Tider </th>
+    <td mat-cell *matCellDef="let element"> {{element.time}} </td>
+  </ng-container>
 
-    <!-- Tisdag Column -->
-    <ng-container matColumnDef="Tisdag">
-      
-      <th mat-header-cell *matHeaderCellDef> Tisdag </th>
-      <ng-container>
-        <td mat-cell *matCellDef="let element" [ngClass]="{
-          'available' : element.isBookedTuesday === true,
-          'booked' : element.isBookedTuesday === false
-       }">
-       
-       <h3>
-        <div *ngIf="element.isBookedTuesday===true; else elseBlock">Ledig tid!</div>
-        <ng-template #elseBlock>Bokad</ng-template>
-       </h3>
-     
-      </td>
-    
-      </ng-container>
-    </ng-container>
-
-    <!-- Onsdag Column -->
-    <ng-container matColumnDef="Onsdag">
-      <th mat-header-cell *matHeaderCellDef> Onsdag </th>
-      <ng-container>
-        <td mat-cell *matCellDef="let element" [ngClass]="{
-          'available' : element.isBookedWednesday === true,
-          'booked' : element.isBookedWednesday === false
-       }">
-       <h3>
-          <div *ngIf="element.isBookedWednesday===true; else elseBlock">Ledig tid!</div>
-          <ng-template #elseBlock>Bokad</ng-template>
+  <!-- Måndag Column -->
+  <ng-container matColumnDef="Måndag">
+    <th mat-header-cell *matHeaderCellDef> Måndag </th>
+    <ng-container>
+      <td mat-cell *matCellDef="let element" [ngClass]="{
+          'available' : element.Monday === undefined || element.Monday === false ,
+          'booked' : element.Monday === true
+       }" (click) = "toggleCell(element.time, 'Monday', element.Monday)">
+        <h3>
+          <div *ngIf="element.Monday===true; else elseBlock">Bokad</div>
+          <ng-template #elseBlock>Ledig tid!</ng-template>
         </h3>
       </td>
-      </ng-container>
     </ng-container>
+  </ng-container>
 
-    <!-- Torsdag Column -->
-    <ng-container matColumnDef="Torsdag">
-      <th mat-header-cell *matHeaderCellDef> Torsdag </th>
-      <ng-container >
-        <td mat-cell *matCellDef="let element" [ngClass]="{
-          'available' : element.isBookedThursday === true,
-          'booked' : element.isBookedThursday === false
-       }" (click)="clicked()">
-          <div *ngIf="element.isBookedThursday===true; else elseBlock"><h3>Ledig tid!</h3>
-          </div>
+  <!-- Tisdag Column -->
+  <ng-container matColumnDef="Tisdag">
+
+    <th mat-header-cell *matHeaderCellDef> Tisdag </th>
+    <ng-container>
+      <td mat-cell *matCellDef="let element" [ngClass]="{
+          'available' : element.Tuesday === undefined || element.Tuesday === false ,
+          'booked' : element.Tuesday === true
+       }" (click) = "toggleCell(element.time, 'Tuesday', element.Tuesday)" >
+
         <h3>
-          <ng-template #elseBlock>Bokad</ng-template>
-       </h3>
-      </td>
-      </ng-container>
-    </ng-container>
+          <div *ngIf="element.Tuesday===true; else elseBlock">Bokad</div>
+          <ng-template #elseBlock>Ledig tid!</ng-template>
+        </h3>
 
-    <!-- Fredag Column -->
-    <ng-container matColumnDef="Fredag">
-      <th mat-header-cell *matHeaderCellDef> Fredag </th>
-      <ng-container>
-        <td mat-cell *matCellDef="let element" [ngClass]="{
-          'available' : element.isBookedFriday === true,
-          'booked' : element.isBookedFriday === false
-       }">
-       <h3>
-        <div *ngIf="element.isBookedFriday===true; else elseBlock">Ledig tid!</div>
-        <ng-template #elseBlock>Bokad</ng-template>
-       </h3>
       </td>
-      </ng-container>
-    </ng-container>
 
-    <!-- Lördag Column -->
-    <ng-container matColumnDef="Lördag">
-      <th mat-header-cell *matHeaderCellDef> Lördag </th>
-      <ng-container>
-        <td mat-cell *matCellDef="let element" [ngClass]="{
-          'available' : element.isBookedSaturday === true,
-          'booked' : element.isBookedSaturday === false
-       }">
-       <h3>
-        <div *ngIf="element.isBookedSaturday===true; else elseBlock">Ledig tid!</div>
-        <ng-template #elseBlock>Bokad</ng-template>
-       </h3>
+    </ng-container>
+  </ng-container>
+
+  <!-- Onsdag Column -->
+  <ng-container matColumnDef="Onsdag">
+    <th mat-header-cell *matHeaderCellDef> Onsdag </th>
+    <ng-container>
+      <td mat-cell *matCellDef="let element" [ngClass]="{
+          'available' : element.Wednesday === undefined || element.Wednesday === false ,
+          'booked' : element.Wednesday === true
+       }" (click) = "toggleCell(element.time, 'Wednesday', element.Wednesday)">
+        <h3>
+          <div *ngIf="element.Wednesday===true; else elseBlock">Bokad</div>
+          <ng-template #elseBlock>Ledig tid!</ng-template>
+        </h3>
       </td>
-      </ng-container>
     </ng-container>
+  </ng-container>
 
-    <!-- Söndag Column -->
-    <ng-container matColumnDef="Söndag">
-      <th mat-header-cell *matHeaderCellDef> Söndag </th>
-      <ng-container>
-        <td mat-cell *matCellDef="let element" [ngClass]="{
-          'available' : element.isBookedSunday === true,
-          'booked' : element.isBookedSunday === false
-       }">
-       <h3>
-        <div *ngIf="element.isBookedSunday===true; else elseBlock">Ledig tid!</div>
-        <ng-template #elseBlock>Bokad</ng-template>
-       </h3>
+  <!-- Torsdag Column -->
+  <ng-container matColumnDef="Torsdag">
+    <th mat-header-cell *matHeaderCellDef> Torsdag </th>
+    <ng-container>
+      <td mat-cell *matCellDef="let element" [ngClass]="{
+          'available' : element.Thursday === undefined || element.Wednesday === false ,
+          'booked' : element.Thursday === true
+       }" (click) = "toggleCell(element.time, 'Torsdag', element.Thursday)">
+        <h3>
+          <div *ngIf="element.Thursday===true; else elseBlock">Bokad</div>
+          <ng-template #elseBlock>Ledig tid!</ng-template>
+        </h3>
       </td>
-      </ng-container>
     </ng-container>
-  
-  
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+  </ng-container>
 
- 
+  <!-- Fredag Column -->
+  <ng-container matColumnDef="Fredag">
+    <th mat-header-cell *matHeaderCellDef> Fredag </th>
+    <ng-container>
+      <td mat-cell *matCellDef="let element" [ngClass]="{
+          'available' : element.Friday === undefined || element.Friday === false ,
+          'booked' : element.Friday=== true
+       }" (click) = "toggleCell(element.time, 'Friday', element.Friday)">
+        <h3>
+          <div *ngIf="element.Friday===true; else elseBlock">Bokad</div>
+          <ng-template #elseBlock>Ledig tid!</ng-template>
+        </h3>
+      </td>
+    </ng-container>
+  </ng-container>
+
+  <!-- Lördag Column -->
+  <ng-container matColumnDef="Lördag">
+    <th mat-header-cell *matHeaderCellDef> Lördag </th>
+    <ng-container>
+      <td mat-cell *matCellDef="let element" [ngClass]="{
+          'available' : element.Saturday === undefined || element.Friday === false ,
+          'booked' : element.Saturday === true
+       }" (click) = "toggleCell(element.time, 'Saturday', element.Saturday)">
+        <h3>
+          <div *ngIf="element.Saturday===true; else elseBlock">Bokad</div>
+          <ng-template #elseBlock>Ledig tid!</ng-template>
+        </h3>
+      </td>
+    </ng-container>
+  </ng-container>
+
+  <!-- Söndag Column -->
+  <ng-container matColumnDef="Söndag">
+    <th mat-header-cell *matHeaderCellDef> Söndag </th>
+    <ng-container>
+      <td mat-cell *matCellDef="let element" [ngClass]="{
+          'available' : element.Sunday === undefined || element.Sunday === false ,
+          'booked' : element.Sunday === true
+       }" (click) = "toggleCell(element.time, 'Sunday', element.Sunday)">
+        <h3>
+          <div *ngIf="element.Sunday===true; else elseBlock">Bokad</div>
+          <ng-template #elseBlock>Ledig tid!</ng-template>
+        </h3>
+      </td>
+    </ng-container>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
