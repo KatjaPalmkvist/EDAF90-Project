@@ -108,7 +108,7 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
                     var result: {[date: string]: string[]} = {}; 
                     snap.forEach(obj => {
                         if (result[obj.date]) {
-                            result[obj.date].push(obj.time)
+                            result[obj.date].push(obj.time);
                         } else {
                             result[obj.date] = [obj.time];
                         }
@@ -116,7 +116,7 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
                     return result;
                 } else {
                     console.log("No data at bookings");
-                    return {}
+                    return {};
                 } 
             });
         return await bookings;
@@ -127,22 +127,22 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
             .then((snapshot: any) => {
                 if(snapshot.exists()) {
                     let snap: {booking_ref: string, sport: string, date: string, time: string}[] = Object.values(snapshot.val());
-                    var result: {[date: string]: {[sport: string]: string[]}} = {}; 
+                    let result: {[date: string]: {[sport: string]: string[]}} = {}; 
                     snap.forEach(obj => {
                         if (result[obj.date]) {
                             if (result[obj.date][obj.sport]) {
-                                result[obj.date][obj.sport].push(obj.time)
+                                result[obj.date][obj.sport].push(obj.time);
                             } else {
                                 result[obj.date][obj.sport] = [obj.time];
                             }
                         } else {
-                            result[obj.date] = {[obj.sport]: [obj.time]}                            
+                            result[obj.date] = {[obj.sport]: [obj.time]};                            
                         }
                     });
-                    
+                    Object.keys(result).map(date => Object.keys(result[date]).forEach(sport => result[date][sport] = result[date][sport].sort()));
                     return result;
                 } else { 
-                    console.log("No data at user bookings")
+                    console.log("No data at user bookings");
                     return {};
                 }
             });
@@ -150,9 +150,19 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
     }, 
 
     setBooking: async (uid, booking) => {
+        const timeReg = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/
+        const dateReg = /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/
+        if (!booking.time.match(timeReg)) {
+            console.log("Wrong Time Format");
+            return false;
+        }
+        if (!booking.date.match(dateReg)) {
+            console.log("Wrong Date Format");
+            return false;
+        }
         let exists = firebase.database().ref("bookings/" + booking.sport).get().then(dayBookings => {
             if (dayBookings.exists()) {
-                let bookings: {time: string, date: string}[] = Object.values(dayBookings.val())
+                let bookings: {time: string, date: string}[] = Object.values(dayBookings.val());
                 if (bookings.find(o => o.time === booking.time && o.date === booking.date)) {
                     return true;
                 } 
@@ -162,27 +172,29 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
 
         let result = exists.then(exist => {
             if (!exist) {
-                firebase.database().ref("bookings/"+booking.sport).push({date: booking.date, time: booking.time})
+                let full_booking = firebase.database().ref("bookings/"+booking.sport).push({date: booking.date, time: booking.time})
                         .then(res => {
                             if(res.key){
-                                firebase.database().ref("user_bookings/" + uid)
+                                let user_booking = firebase.database().ref("user_bookings/" + uid)
                                     .push({...booking, booking_ref: res.key})
                                     .then(res => {
                                         if (res.key) {
                                             return true;
                                         } 
-                                        console.log("Booking not added, something went wring")
+                                        console.log("Booking not added, something went wrong");
                                         return false;
                                     })
+                                return user_booking;
                             }
-                            console.log("Something went wrong during the booking. Please try again!")
-                            return false
+                            console.log("Something went wrong during the booking. Please try again!");
+                            return false;
                             
                         })
                         .catch(err => {
                             console.log(err.message);
                             return false;
                         })
+                        return full_booking;
                     }
                     return false;
                 });
