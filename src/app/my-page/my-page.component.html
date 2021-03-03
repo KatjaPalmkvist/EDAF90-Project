@@ -2,112 +2,43 @@
     <h3 class="display-4">Min Profil</h3>
     <p class="lead">Här hittar du information om dina bokade pass. Du har även möjlighet att avboka passen.</p>
 </div>
-<div class="row m-2">
+<div class="row">
 
-<div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+<div class="nav flex-column nav-pills m-2" role="tablist" aria-orientation="vertical">
     <a class="nav-link active" data-toggle="pill">Mina bokningar</a>
     <a class="nav-link" data-toggle="pill">Tidigare bokningar</a>
     <a class="nav-link" data-toggle="pill">Inställningar</a>
 </div>
-<div class="container">
+<div class="container" >
+        <div class="card shadow-sm m-2 outer-card" *ngFor="let item of userBookings | keyvalue">
+            <div class="card-header">
+                <h4>{{item.key}}</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-group" *ngFor="let sport of item.value | keyvalue">
+                    <h6 class="card-subtitle m-1 text-muted">{{sport.key.charAt(0).toUpperCase() + sport.key.slice(1)}}</h6>
+                    <li class="card shadow-sm m-2" *ngFor="let time of sport.value">
+                    
+                        <div class="card-body" >
+                            <div class="d-flex">
+                                <div class="mr-auto">
+                                     <h6 class="m-1">{{time}}</h6>
+                                </div>
+                                <div class="ml-auto m-1">
+                                    <a>
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    
+                    </li>
     
-    <div class="card m-2 outer-card" >
-        <div class="card-header">
-            2021-03-03
-        </div>
-        <div class="card-body">
-            <ul class="list-group">
-                <li class="card shadow-sm m-2">
-                    
-                        <div class="card-body">
-                            <div class="d-flex">
-                                <div class="mr-auto">
-                                    9:00 : Badminton
-                                </div>
-                                <div class="ml-auto">
-                                    <button class="btn btn-danger">
-                                        <i class="bi bi-x"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                        </div>
-                    
-                </li>
-                
-
-            </ul>
+                </ul>
+            </div>
         </div>
     </div>
-    <div class="card m-2 outer-card">
-        <div class="card-header">
-            2021-03-05
-        </div>
-        <div class="card-body">
-            <ul class="list-group">
-                <li class="card shadow-sm m-2">
-                    
-                        <div class="card-body">
-                            <div class="d-flex">
-                                <div class="mr-auto">
-                                    9:00 : Badminton
-                                </div>
-                                <div class="ml-auto">
-                                    <button class="btn btn-danger">
-                                        <i class="bi bi-x"></i>
-                                    </button>
-                                </div>
-                            </div>
 
-                        </div>
-                    
-                </li>
-                <li class="card shadow-sm m-2">
-                    
-                    <div class="card-body">
-                        Då
-
-                    </div>
-                
-                </li>
-
-            </ul>
-        </div>
-    </div>
-    <div class="card m-2 outer-card">
-        <div class="card-header">
-            2021-03-06
-        </div>
-        <div class="card-body">
-            <ul class="list-group">
-                <li class="card shadow-sm m-2">
-                    
-                        <div class="card-body">
-                            <div class="d-flex">
-                                <div class="mr-auto">
-                                    9:00 : Badminton
-                                </div>
-                                <div class="ml-auto">
-                                    <button class="btn btn-danger">
-                                        <i class="bi bi-x"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    
-                </li>
-                <li class="card shadow-sm m-2">
-                    
-                    <div class="card-body">
-                        Då
-
-                    </div>
-                
-                </li>
-
-            </ul>
-        </div>
-    </div>
     
-</div>
 </div>
