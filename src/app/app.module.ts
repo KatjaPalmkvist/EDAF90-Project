@@ -20,6 +20,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { MyPageComponent } from './my-page/my-page.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { MyPageComponent } from './my-page/my-page.component';
     LoginComponent,
     BookingTableComponent,
     RegisterComponent,
-    MyPageComponent
+    MyPageComponent, 
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
