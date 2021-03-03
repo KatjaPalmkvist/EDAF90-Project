@@ -1,16 +1,26 @@
 .container {
-    
+    margin: auto;
+    position: absolute;
     display: flex;
     align-items: flex-start;
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
-    
+    z-index: -1;
+}
+
+.row {
+    justify-content: center;
+}
+
+.flex-column {
+    position: absolute;
+    z-index: 100;
+    left: 0%;
 }
 
 
 .outer-card {
     flex-basis: 50%;
     
-
 }
