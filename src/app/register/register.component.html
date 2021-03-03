@@ -1,15 +1,54 @@
 <h1 class="jumbotron">Registrera användare</h1>
-<form action="action_page.php" method="post">
+<form (ngSubmit)="onSubmit()" [formGroup]="registerForm" novalidate>
     <div class="container">
-      <label for="uname"><b></b></label>
-      <input type="text" placeholder="Användarnamn" name="userName" [(ngModel)]="userName" required>
-  
-      <label for="psw"><b></b></label>
-      <input type="password" placeholder="Lösenord" name="password" [(ngModel)]="password" required>
-    
-      <label for="psw"><b></b></label>
-      <input type="password" placeholder="Upprepa lösenord" name="repeat" [(ngModel)]="repeat" required>
+      <div class="form-group"> 
+        <label for="uname"><b></b></label>
+        <input formControlName="userName" type="text" placeholder="Användarnamn" name="userName" required>
+      </div>
 
-      <button type="submit" (click)="register()">Registrera</button>
+      <div *ngIf="registerForm.controls['userName'].invalid && (registerForm.controls['userName'].dirty || registerForm.controls['userName'].touched)" class="alert alert-danger">
+        <div *ngIf="registerForm.controls['userName'].errors?.required">
+          Användarnamn saknas.
+        </div>
+      </div>
+
+      <div class="form-group"> 
+        <label for="email"><b></b></label>
+        <input formControlName="email" type="email" placeholder="E-post" name="email" required [email]="registerForm.controls['email'].valid">
+      </div>
+
+      <div *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)" class="alert alert-danger">
+        <div *ngIf="registerForm.controls['email'].errors?.required">
+          E-post saknas.
+        </div>
+        <div *ngIf="registerForm.controls['email'].errors?.email">
+          Ej giltig E-post
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="psw"><b></b></label>
+        <input formControlName="password" type="password" placeholder="Lösenord" name="password" required>
+      </div>
+
+      <div *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)" class="alert alert-danger">
+        <div *ngIf="registerForm.controls['password'].errors?.required">
+          Lösenord saknas.
+        </div>
+      </div>
+      
+      
+      <div class="form-group">
+        <label for="psw"><b></b></label>
+        <input formControlName="repeat" type="password" placeholder="Upprepa lösenord" name="repeat" required>
+      </div>
+
+      <div *ngIf="registerForm.controls['repeat'].invalid && (registerForm.controls['repeat'].dirty || registerForm.controls['repeat'].touched)" class="alert alert-danger">
+        <div *ngIf="registerForm.controls['repeat'].errors?.required">
+          Upprepat lösenord saknas.
+        </div>
+      </div>
+    
+      <button type="submit" [disabled]="registerForm.controls['userName'].invalid || registerForm.controls['email'].invalid || registerForm.controls['password'].invalid || registerForm.controls['repeat'].invalid">Registrera</button>
     </div>
   </form>
