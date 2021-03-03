@@ -13,7 +13,7 @@ const routes: Routes = [
   {path: 'booking', component: BookingTableComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'mypage', component: MyPageComponent},
-  {path: 'booking-confirmation/:sport/:time/:day', component: BookingConfirmationComponent},
+  {path: 'booking-confirmation/:sport/:time/:day', component: BookingConfirmationComponent, canActivate: [AuthGuard]},
   {path: 'mypage', component: MyPageComponent, canActivate: [AuthGuard]}
 ];
 
