@@ -2,13 +2,16 @@
     <div class="container">
 
       <div class="form-group">
-        <label for="userName"><b>Användarnamn</b></label>
-      <input formControlName="userName" id="userName" type="text" placeholder="Ange ditt användarnamn" name="userName" required>
+        <label for="userName"><b>E-post</b></label>
+      <input formControlName="userName" id="userName" type="text" placeholder="Ange din E-post" name="userName" required>
       </div>
 
       <div *ngIf="loginForm.controls['userName'].invalid && (loginForm.controls['userName'].dirty || loginForm.controls['userName'].touched)" class="alert alert-danger">
         <div *ngIf="loginForm.controls['userName'].errors?.required">
-          Användarnamn saknas.
+          E-post saknas.
+        </div>
+        <div *ngIf="loginForm.controls['userName'].errors?.email">
+          Ej giltig E-post.
         </div>
       </div>
       
