@@ -80,7 +80,7 @@
       <td mat-cell *matCellDef="let element" [ngClass]="{
           'available' : element.Thursday === undefined || element.Wednesday === false ,
           'booked' : element.Thursday === true
-       }" (click) = "toggleCell(element.time, 'Torsdag', element.Thursday)">
+       }" (click) = "toggleCell(element.time, 'Thursday', element.Thursday)">
         <h3>
           <div *ngIf="element.Thursday===true; else elseBlock">Bokad</div>
           <ng-template #elseBlock>Ledig tid!</ng-template>

@@ -1,6 +1,12 @@
+<div class="jumbotron">
+    <h3 class="display-4">Bekräfta bokning</h3>
+    <p class="lead"></p>
+</div>
+<div class="row m-2">
+
 <div class="card m-2 outer-card" id="confirmCard">
     <div class="card-header">
-        {{day}}
+        <h5>Din bokning</h5>
     </div>
     <div class="card-body">
         <ul class="list-group">
@@ -9,10 +15,12 @@
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="mr-auto">
-                                Din bokning: {{sport}} {{time}}
+                                {{day}}: {{sport}} {{time}}
                             </div>
                             <div class="ml-auto">
-                                <button class="btn btn-primary">Bekräfta bokning</button>
+                                <button class="btn btn-outline-danger">Avbryt bokning</button>
+                                <div class="divider"></div>
+                                <button class="btn btn-outline-success">Bekräfta bokning</button>
                             </div>
                         </div>
 
