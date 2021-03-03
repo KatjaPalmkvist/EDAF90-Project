@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
-import {rest, Sport} from "../../rest";
+import {rest, Sport} from "src/rest";
 import { Router } from '@angular/router';
-
 
 
 const timeToIndex: any =  { 
@@ -43,19 +42,18 @@ const BASE_ELEMENT_DATA: any[] = [
   {position: 4, time: "08-09"},
   {position: 5, time: "09-10"},
   {position: 6, time: "10-11"},
-  {position: 7, time: "10-11"},
-  {position: 8, time: "11-12"},
-  {position: 9, time: "12-13"},
-  {position: 10, time: "13-14"},
-  {position: 11, time: "14-15"},
-  {position: 12, time: "15-16"},
-  {position: 13, time: "16-17"},
-  {position: 14, time: "17-18"},
-  {position: 15, time: "18-19"},
-  {position: 16, time: "19-20"},
-  {position: 17, time: "20-21"},
-  {position: 18, time: "21-22"},
-  {position: 19, time: "22-23"},
+  {position: 7, time: "11-12"},
+  {position: 8, time: "12-13"},
+  {position: 9, time: "13-14"},
+  {position: 10, time: "14-15"},
+  {position: 11, time: "15-16"},
+  {position: 12, time: "16-17"},
+  {position: 13, time: "17-18"},
+  {position: 14, time: "18-19"},
+  {position: 15, time: "19-20"},
+  {position: 16, time: "20-21"},
+  {position: 17, time: "21-22"},
+  {position: 18, time: "22-23"},
 ];
 
 const ELEMENT_DATA_SPORTS : any = [Sport.tennis , Sport.padel , Sport.badminton];
