@@ -7,10 +7,11 @@ import { rest, Sport } from 'src/rest'
     styleUrls: ['my-page.component.css']
 })
 
-export class MyPageComponent implements OnInit {
-    constructor() { }
-
+export class MyPageComponent implements OnInit{
+    constructor() { 
+        
+    }
     ngOnInit() {
-        console.log(rest.getCurrentUser())
-     }
+
+    }
 }

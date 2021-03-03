@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { MyPageComponent } from './my-page/my-page.component';
 import { BookingConfirmationComponent} from './booking-confirmation/booking-confirmation.component';
+import { AuthGuard } from './shared/auth.guard';
 
 
 const routes: Routes = [
@@ -12,7 +13,8 @@ const routes: Routes = [
   {path: 'booking', component: BookingTableComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'mypage', component: MyPageComponent},
-  {path: 'booking-confirmation/:sport/:time/:day', component: BookingConfirmationComponent}
+  {path: 'booking-confirmation/:sport/:time/:day', component: BookingConfirmationComponent},
+  {path: 'mypage', component: MyPageComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
