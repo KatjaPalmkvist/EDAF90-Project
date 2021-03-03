@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {rest} from "src/rest";
 
 @Component({
   selector: 'app-register',
@@ -7,9 +8,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  //userName: String;
-  //password: String;
-  //repeat: String;
   registerForm: FormGroup;
 
   constructor(private fb: FormBuilder) { 
@@ -18,8 +16,7 @@ export class RegisterComponent implements OnInit {
 
   createForm() {
     this.registerForm = this.fb.group({
-      userName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      userName: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       repeat: ['', Validators.required]
     })
@@ -31,7 +28,13 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.f.userName.value, this.f.email.value, this.f.password.value, this.f.repeat.value);
+    console.log(this.f.userName.value, this.f.password.value, this.f.repeat.value);
+    if(this.f.password.value === this.f.repeat.value) {
+      rest.register({username: this.f.userName.value, 
+        password: this.f.password.value}).then(res => console.log(res));
+    } else {
+      console.log("!!!!Passwords does not match!!!!");
+    }    
   }
 
 }

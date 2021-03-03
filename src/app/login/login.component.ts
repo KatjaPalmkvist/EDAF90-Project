@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {rest} from "src/rest";
+//rest.register({username: "katja@gmail.com", password: "password"});
+//rest.logout();
+
 
 @Component({
   selector: 'app-login',
@@ -15,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   createForm() {
     this.loginForm = this.fb.group({
-      userName: ['', Validators.required],
+      userName: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     })
   }
@@ -24,8 +28,12 @@ export class LoginComponent implements OnInit {
     
   }
 
+  get f() { return this.loginForm.controls; }
+
   onSubmit(): void {
-    console.log(this.loginForm.controls["userName"].value, this.loginForm.controls["password"].value);
+    console.log(this.f.userName.value, this.f.password.value);
+    rest.login({username: this.f.userName.value, 
+                password: this.f.password.value}).then(res => console.log(res));
   }
 
 }

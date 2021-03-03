@@ -12,7 +12,6 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'booking', component: BookingTableComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'mypage', component: MyPageComponent},
   {path: 'booking-confirmation/:sport/:time/:day', component: BookingConfirmationComponent},
   {path: 'mypage', component: MyPageComponent, canActivate: [AuthGuard]}
 ];
