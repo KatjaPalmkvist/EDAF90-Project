@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { rest, Sport } from 'src/rest'
+import { rest } from 'src/rest'
 
 @Component({
     selector: 'app-my-page',
@@ -11,7 +11,7 @@ export class MyPageComponent implements OnInit {
     userBookings: {[date: string]: {[sport: string]: string[]}};
     
     constructor() { 
-        console.log(rest.getCurrentUser())
+
     }
     ngOnInit() {
         rest.getUserBookings(rest.getCurrentUser().uid).then((res: any) => {
