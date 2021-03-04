@@ -35,7 +35,12 @@ export class LoginComponent implements OnInit {
                 .then(res => {
                   if (res.email !== "") {
                     console.log("Welcome in!");
-                    this.router.navigate(['/mypage']);
+                    if(history.state["sport"]) {
+                      const {sport, time, formattedDate} = history.state;
+                      this.router.navigate(['/booking-confirmation', sport, time, formattedDate]);
+                    } else {
+                      this.router.navigate(['/mypage']);
+                    }
                   }
                 });
   }

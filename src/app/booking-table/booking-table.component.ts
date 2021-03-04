@@ -92,7 +92,11 @@ export class BookingTableComponent {
     if(!isBooked) {
         const date = moment().day(weekdayToWeekdaynbr[day]).week(this.currentWeek);
         const formattedDate = moment(date).format('YYYY-MM-DD');
-        this.router.navigate(['/booking-confirmation', this.activeSport, time, formattedDate]);
+        if (rest.getCurrentUser().uid) {
+          this.router.navigate(['/booking-confirmation', this.activeSport, time, formattedDate]);
+        } else {
+          this.router.navigate(['/login'], {state: {sport: this.activeSport, time, formattedDate}})
+        }
       } else {
 
     }
