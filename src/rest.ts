@@ -117,8 +117,11 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
     userListener: async (changeUserStatus: (authChange: boolean) => void) => {
         firebase.auth().onAuthStateChanged(user => {
                 if (user) {
+                    localStorage.setItem("isLoggedIn", "true");
                     changeUserStatus(true);
+                    
                 } else {
+                    localStorage.removeItem("isLoggedIn");
                     changeUserStatus(false);
                 }
             }) 

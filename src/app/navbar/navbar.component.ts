@@ -10,9 +10,8 @@ export class NavigationBarComponent {
     isLoggedIn: boolean;
 
     constructor() { 
-        rest.isLoggedIn().then(res => {
-            this.isLoggedIn = res;
-        })
+        this.isLoggedIn = localStorage.getItem("isLoggedIn") ? true : false;
+
         rest.userListener((userStatus) =>{
             this.isLoggedIn = userStatus;
         })
