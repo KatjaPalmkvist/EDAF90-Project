@@ -1,30 +1,32 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Book4fun</a>
+    <a class="navbar-brand" routerLink="/home">Book4fun</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="#">Start</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" routerLink="/booking">Boka</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="!isLoggedIn">
           <a class="nav-link" routerLink="/register">Registrera</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Kontakt</a>
+          <a class="nav-link" routerLink="/home">Kontakt</a>
         </li>
       </ul>
       <ul class="navbar-nav my-2 my-lg-0">
         <li class="nav-item">
           <a class="nav-link" routerLink="/mypage"><i class="bi bi-person"></i> Min profil</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="!isLoggedIn; else loggedOut">
           <a class="nav-link" routerLink="/login"><i class="bi bi-box-arrow-in-right"></i> Logga in</a>
         </li>
+        <ng-template #loggedOut>
+          <li class="nav-item">
+            <a class="nav-link" (click)="logout()" routerLink="/home"><i class="bi bi-box-arrow-in-right"></i> Logga ut</a>
+          </li>
+        </ng-template>
       </ul>
     </div>
   

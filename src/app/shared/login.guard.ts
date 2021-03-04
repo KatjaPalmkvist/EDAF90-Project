@@ -7,7 +7,7 @@ import { rest } from 'src/rest';
     providedIn: 'root'
 })
 
-export class AuthGuard implements CanActivate {
+export class LoginGuard implements CanActivate {
     
     constructor(
         public router: Router
@@ -18,8 +18,8 @@ export class AuthGuard implements CanActivate {
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
             return rest.isLoggedIn().then(res => {
-                if (!res) {
-                    this.router.navigate(['/login']);
+                if (res) {
+                    this.router.navigate(['/home']);
                     return false;
                 }
                 return true;

@@ -13,7 +13,7 @@ export class MyPageComponent implements OnInit {
     userBookings: {[date: string]: {[sport: string]: string[]}};
     
     constructor() { 
-        console.log(rest.getCurrentUser())
+
     }
     ngOnInit() {
         rest.getUserBookings(rest.getCurrentUser().uid).then((res: any) => {
@@ -23,8 +23,4 @@ export class MyPageComponent implements OnInit {
         
 
     }
-}
-
-function hej(date: string, time: string, sport: Sport) {
-    return `<div>${date}</div>`
 }
