@@ -43,9 +43,16 @@
         </div>
       </div>
 
-      <div *ngIf="match === false">
-        <div style="color : red">Ej matchande lösenord. Försök igen.</div>
+      <div *ngIf="match === false" class="alert alert-danger">
+        <div>
+          Ej matchande lösenord. Försök igen.
+        </div>
       </div>
       <button type="submit" [disabled]="registerForm.controls['userName'].invalid || registerForm.controls['password'].invalid || registerForm.controls['repeat'].invalid">Registrera</button>
+      <div *ngIf="userExists" class="alert alert-danger">
+        <div>
+          Finns redan en användare med denna email
+        </div>
+      </div>
     </div>
   </form>
