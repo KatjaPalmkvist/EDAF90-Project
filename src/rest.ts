@@ -53,10 +53,8 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
     register: async (credentials) => {
         let result = firebase.auth().createUserWithEmailAndPassword(credentials.username, credentials.password)
             .then((userCredentials: any) => {
-                //User is now logged in
                 let user = userCredentials.user;
-                alert(`User registered: ${user} and logged in`)
-                return user;
+                return {uid: user.uid, email: user.email};
             })
             .catch((error: any) => { 
                 console.log(error.message);
