@@ -11,6 +11,7 @@ import {rest} from "src/rest";
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  public success: boolean;
   
   constructor(private fb: FormBuilder, private router: Router) {
     this.createForm();
@@ -35,12 +36,15 @@ export class LoginComponent implements OnInit {
                 .then(res => {
                   if (res.email !== "") {
                     console.log("Welcome in!");
+                    this.success = true;
                     if(history.state["sport"]) {
                       const {sport, time, formattedDate} = history.state;
                       this.router.navigate(['/booking-confirmation', sport, time, formattedDate]);
                     } else {
                       this.router.navigate(['/mypage']);
                     }
+                  } else {
+                    this.success = false;
                   }
                 });
   }

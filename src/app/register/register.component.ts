@@ -10,6 +10,7 @@ import {rest} from "src/rest";
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
+  public match: boolean;
 
   constructor(private fb: FormBuilder, private router: Router) { 
     this.createForm();
@@ -31,6 +32,7 @@ export class RegisterComponent implements OnInit {
   onSubmit(): void {
     console.log(this.f.userName.value, this.f.password.value, this.f.repeat.value);
     if(this.f.password.value === this.f.repeat.value) {
+      this.match = true;
       rest.register({username: this.f.userName.value, 
         password: this.f.password.value}).then(res => {
           if (res) {
@@ -38,7 +40,9 @@ export class RegisterComponent implements OnInit {
           } 
         });
     } else {
-      console.log("!!!!Passwords does not match!!!!");
+      this.match = false;
+      //this.f.password.setValue("");
+      //this.f.repeat.setValue("");
     }    
   }
 

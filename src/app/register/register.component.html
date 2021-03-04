@@ -42,7 +42,10 @@
           Minst 6 tecken.
         </div>
       </div>
-    
+
+      <div *ngIf="match === false">
+        <div style="color : red">Ej matchande lösenord. Försök igen.</div>
+      </div>
       <button type="submit" [disabled]="registerForm.controls['userName'].invalid || registerForm.controls['password'].invalid || registerForm.controls['repeat'].invalid">Registrera</button>
     </div>
   </form>

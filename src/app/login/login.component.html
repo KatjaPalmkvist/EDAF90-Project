@@ -27,7 +27,9 @@
         </div> 
       </div> 
       
-
+      <div *ngIf="success === false">
+        <div style="color : red">Misslyckad inloggning. Försök igen.</div>
+      </div> 
       <button type="submit" [disabled]="loginForm.controls['userName'].invalid || loginForm.controls['password'].invalid">Logga in</button>
       <span class="psw"><a routerLink="/register">Registrera användare</a></span>
     </div>
