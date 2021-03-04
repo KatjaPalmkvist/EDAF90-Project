@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import {rest} from "src/rest";
 //rest.register({username: "katja@gmail.com", password: "password"});
 //rest.logout();
@@ -13,7 +14,7 @@ import {rest} from "src/rest";
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.createForm();
   }
 
@@ -32,7 +33,13 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     console.log(this.f.userName.value, this.f.password.value);
     rest.login({username: this.f.userName.value, 
-                password: this.f.password.value}).then(res => console.log(res));
+                password: this.f.password.value})
+                .then(res => {
+                  if (res.email !== "") {
+                    console.log("Welcome in!");
+                    this.router.navigate(['/mypage']);
+                  }
+                });
   }
 
 }
