@@ -9,6 +9,7 @@ import { AuthGuard } from './shared/auth.guard';
 import { LoginGuard } from './shared/login.guard';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { ContactComponent } from './contact/contact.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'home', component: HomePageComponent}, 
   {path: '', pathMatch: 'full', redirectTo: '/home'},
   {path: 'page-not-found', component: PageNotFoundComponent}, 
+  {path: 'contact', component: ContactComponent},
   {path: '**', redirectTo: '/page-not-found'}
 ];
 

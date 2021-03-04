@@ -22,6 +22,7 @@ import { RegisterComponent } from './register/register.component';
 import { MyPageComponent } from './my-page/my-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { HomePageComponent } from './home-page/home-page.component';
     RegisterComponent,
     MyPageComponent, 
     PageNotFoundComponent, 
-    HomePageComponent
+    HomePageComponent, ContactComponent
   ],
   imports: [
     BrowserModule,
