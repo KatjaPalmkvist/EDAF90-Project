@@ -21,6 +21,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { MyPageComponent } from './my-page/my-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     BookingTableComponent,
     RegisterComponent,
     MyPageComponent, 
-    PageNotFoundComponent
+    PageNotFoundComponent, 
+    HomePageComponent
   ],
   imports: [
     BrowserModule,

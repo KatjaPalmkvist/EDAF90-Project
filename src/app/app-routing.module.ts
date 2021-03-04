@@ -7,6 +7,7 @@ import { MyPageComponent } from './my-page/my-page.component';
 import { BookingConfirmationComponent} from './booking-confirmation/booking-confirmation.component';
 import { AuthGuard } from './shared/auth.guard';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,8 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'booking-confirmation/:sport/:time/:day', component: BookingConfirmationComponent},
   {path: 'mypage', component: MyPageComponent, canActivate: [AuthGuard]},
+  {path: 'home', component: HomePageComponent}, 
+  {path: '', pathMatch: 'full', redirectTo: '/home'},
   {path: 'page-not-found', component: PageNotFoundComponent}, 
   {path: '**', redirectTo: '/page-not-found'}
 ];
