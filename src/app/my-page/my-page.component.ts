@@ -42,10 +42,11 @@ export class MyPageComponent implements OnInit {
             console.log(res);
 
             this.userBookings[date][sport] = this.userBookings[date][sport].filter(t => t !== time);
+            console.log(this.userBookings)
             if (Object.keys(this.userBookings[date]).length === 1 && this.userBookings[date][sport].length === 0) {
                 delete this.userBookings[date];
             }
-            if (Object.keys(this.userBookings[date]).length > 1 && this.userBookings[date][sport].length === 0){
+            else if (Object.keys(this.userBookings[date]).length > 1 && this.userBookings[date][sport].length === 0){
                 delete this.userBookings[date][sport];
             }
         })
