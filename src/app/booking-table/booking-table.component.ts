@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {rest, Sport} from "src/rest";
 import { Router } from '@angular/router';
+const moment = require('moment');
+import 'moment/locale/se';
 
 
 const timeToIndex: any =  { 
@@ -68,6 +70,7 @@ export class BookingTableComponent {
   displayedColumns: string[] = ['Tider', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag', 'Söndag'];
   dataSource = BASE_ELEMENT_DATA;
   activeSport = '';
+  currentWeek = 9;
 
   constructor(private router: Router) { }
 
@@ -78,6 +81,8 @@ export class BookingTableComponent {
 
   toggleCell(time : string, day : string, isBooked : boolean): void {
     if(!isBooked) {
+  //      const testDate = moment().day(weekday_nbr).week(moment(date, 'YYYY-MM-DD').week());
+  //      const formatted = moment(testDate).format('YYYY-MM-DD');
         this.router.navigate(['/booking-confirmation', this.activeSport, time, day]);
       } else {
 
@@ -92,16 +97,23 @@ export class BookingTableComponent {
   }
 
   getBooking = async (sport: Sport) => {
-    let ELEMENT_DATA : any[] = BASE_ELEMENT_DATA.map(x => Object.assign({}, x));
+    let ELEMENT_DATA: any[] = BASE_ELEMENT_DATA.map(x => Object.assign({}, x));
     rest.getBookings(sport).then((bookings: any) => {
-      let typeBookings: {[date: string]: string[]} = bookings;
-      Object.keys(typeBookings).forEach(date => typeBookings[date].map(time => {
-        let index = timeToIndex[time];
-        let weekday_nbr = new Date(date).getDay();
-        //Get the weekday
-        let week_day = weekdayNbrToWeekday[weekday_nbr];
-        ELEMENT_DATA[index][week_day] = true
-      }));
+      let typeBookings: { [date: string]: string[] } = bookings;
+      Object.keys(typeBookings).forEach(date => {
+        if (this.currentWeek === moment(date, 'YYYY-MM-DD',).week()) {
+          typeBookings[date].map(time => {
+            let index = timeToIndex[time];
+            let weekday_nbr = new Date(date).getDay();
+            //Get the weekday
+            let week_day = weekdayNbrToWeekday[weekday_nbr];
+           // const testDate = moment().day(weekday_nbr).week(moment(date, 'YYYY-MM-DD').week());
+           // console.log(moment(testDate).format('YYYY-MM-DD'), 'formaterat');
+           // console.log(date, ' date')
+            ELEMENT_DATA[index][week_day] = true;
+          })
+        }
+      });
     }).then(x => {
       this.dataSource = ELEMENT_DATA;
     });

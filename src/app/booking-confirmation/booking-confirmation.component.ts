@@ -31,6 +31,8 @@ export class BookingConfirmationComponent {
           this.sport = sport[0].toUpperCase() + sport.substring(1);
         });
     }
+
+    
     
 
 }
