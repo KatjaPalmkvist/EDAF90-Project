@@ -1,12 +1,14 @@
-.container {
+.tab-pane {
     margin: auto;
+    width: 50%;
+
+}
+
+.tab-content {
     position: absolute;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    flex-direction: row;
-    flex-wrap: wrap;
+    width: 80%;
     z-index: -1;
+
 }
 
 .row {

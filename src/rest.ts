@@ -246,12 +246,8 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
 
         let result = bookingRefExists.then(bookingRef => {
             if (bookingRef.user_booking && bookingRef.booking) {
-                firebase.database().ref("user_bookings/" + uid).child(bookingRef.user_booking).remove().then(r => {
-                    console.log(r)
-                })
-                firebase.database().ref("bookings/" + booking.sport).child(bookingRef.booking).remove().then(r => {
-                    console.log(r)
-                })
+                firebase.database().ref("user_bookings/" + uid).child(bookingRef.user_booking).remove();
+                firebase.database().ref("bookings/" + booking.sport).child(bookingRef.booking).remove();
                 return true;
 
             }
