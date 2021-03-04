@@ -8,7 +8,7 @@
     border-top: 1px solid rgba(0, 0, 0, 0.12);
     border-left: 2px solid rgba(0, 0, 0, 0.12);
     border-right: 2px solid rgba(0, 0, 0, 0.12);
-    background-color: #f5cc7a;
+    background-color: #cbc5b9;
     text-align: center !important;
     vertical-align: middle;
     width: 12.5%;
@@ -18,12 +18,12 @@
 }
 
 .booked {
-    background-color: #F14545;
+    background-color: #FF6700;
     color: black;
 }
 
 .booked:hover {
-    background-color: #8f3131;
+    background-color: #ab4c03;
 }
 
 .mat-header-cell {
@@ -38,13 +38,13 @@
 }
 
 .available {
-    background-color: #6BE269;
+    background-color: #5bc0de;
     color: white;
     cursor: pointer;
 }
 
 .available:hover {
-    background-color: #4ab348;
+    background-color: #454bfa;
 }
 
 table {
@@ -69,7 +69,7 @@ table {
     color:rgb(0, 0, 0);
     font-size:17px;
     text-decoration: solid;
-    background-color: #f5cc7a;
+    background-color: #cbc5b9;
     }
     
 ::ng-deep .mat-tab-list .mat-tab-labels {
