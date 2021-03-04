@@ -22,9 +22,14 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/mypage"><i class="bi bi-person"></i> Min profil</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="!isLoggedIn; else loggedOut">
           <a class="nav-link" routerLink="/login"><i class="bi bi-box-arrow-in-right"></i> Logga in</a>
         </li>
+        <ng-template #loggedOut>
+          <li class="nav-item">
+            <a class="nav-link" (click)="logout()" routerLink="/home"><i class="bi bi-box-arrow-in-right"></i> Logga ut</a>
+          </li>
+        </ng-template>
       </ul>
     </div>
   

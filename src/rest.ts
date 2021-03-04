@@ -47,7 +47,8 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
                     getBookings(sport: Sport): Promise<Object>, 
                     getUserBookings(uid: string): Promise<Object>, 
                     setBooking(uid:string, booking: Booking): Promise<boolean>,
-                    removeBooking(uid: string, booking: Booking): Promise<boolean>
+                    removeBooking(uid: string, booking: Booking): Promise<boolean>, 
+                    userListener(changeUserStatus: (authChange: boolean) => void): void
                 } = {
     register: async (credentials) => {
         let result = firebase.auth().createUserWithEmailAndPassword(credentials.username, credentials.password)
@@ -111,6 +112,16 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
                 }
             }, reject)
         })  
+    },
+
+    userListener: async (changeUserStatus: (authChange: boolean) => void) => {
+        firebase.auth().onAuthStateChanged(user => {
+                if (user) {
+                    changeUserStatus(true);
+                } else {
+                    changeUserStatus(false);
+                }
+            }) 
     },
 
 
