@@ -24,6 +24,9 @@
         <div *ngIf="registerForm.controls['password'].errors?.required">
           Lösenord saknas.
         </div>
+        <div *ngIf="registerForm.controls['password'].errors?.minlength">
+          Minst 6 tecken.
+        </div>
       </div>
       
       <div class="form-group">
@@ -34,6 +37,9 @@
       <div *ngIf="registerForm.controls['repeat'].invalid && (registerForm.controls['repeat'].dirty || registerForm.controls['repeat'].touched)" class="alert alert-danger">
         <div *ngIf="registerForm.controls['repeat'].errors?.required">
           Upprepat lösenord saknas.
+        </div>
+        <div *ngIf="registerForm.controls['repeat'].errors?.minlength">
+          Minst 6 tecken.
         </div>
       </div>
     

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import {rest} from "src/rest";
 
 @Component({
@@ -10,15 +11,15 @@ import {rest} from "src/rest";
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder, private router: Router) { 
     this.createForm();
   }
 
   createForm() {
     this.registerForm = this.fb.group({
       userName: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      repeat: ['', Validators.required]
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      repeat: ['', [Validators.required, Validators.minLength(6)]]
     })
   }
 
@@ -31,7 +32,11 @@ export class RegisterComponent implements OnInit {
     console.log(this.f.userName.value, this.f.password.value, this.f.repeat.value);
     if(this.f.password.value === this.f.repeat.value) {
       rest.register({username: this.f.userName.value, 
-        password: this.f.password.value}).then(res => console.log(res));
+        password: this.f.password.value}).then(res => {
+          if (res) {
+            this.router.navigate(['/mypage']);
+          } 
+        });
     } else {
       console.log("!!!!Passwords does not match!!!!");
     }    
