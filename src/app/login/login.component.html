@@ -1,3 +1,4 @@
+<h1 class="jumbotron">Logga in</h1>
 <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" novalidate>
     <div class="container">
 
@@ -28,9 +29,6 @@
       
 
       <button type="submit" [disabled]="loginForm.controls['userName'].invalid || loginForm.controls['password'].invalid">Logga in</button>
-    </div>
-  
-    <div class="container" style="background-color:#f1f1f1">
       <span class="psw"><a routerLink="/register">Registrera</a></span>
     </div>
   </form>
