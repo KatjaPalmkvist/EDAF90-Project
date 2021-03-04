@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { rest, Sport } from 'src/rest'
+import { rest, Sport } from 'src/rest';
+import { KeyValue } from '@angular/common';
 
 @Component({
     selector: 'app-my-page',
@@ -53,4 +54,7 @@ export class MyPageComponent implements OnInit {
         
 
     }
+    keyDescOrder = (a: KeyValue<string,Object>, b: KeyValue<string,Object>): number => {
+        return a.key > b.key ? -1 : (b.key > a.key ? 1 : 0);
+      }
 }

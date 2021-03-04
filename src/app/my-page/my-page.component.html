@@ -46,7 +46,7 @@
 
 
         <div class="tab-pane fade" aria-labelledby="old-bookings-tab" id="old-bookings" role="tabpanel">
-            <div class="card shadow-sm m-2 outer-card" *ngFor="let item of oldBookings | keyvalue">
+            <div class="card shadow-sm m-2 outer-card" *ngFor="let item of oldBookings | keyvalue: keyDescOrder">
                 <div class="card-header">
                     <h4>{{item.key}}</h4>
                 </div>
