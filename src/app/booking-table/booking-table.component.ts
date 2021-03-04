@@ -26,7 +26,7 @@ const timeToIndex: any =  {
   "22:00" : 17,
 };
 
-const weekdayNbrToWeekday = [
+const weekdaynbrToWeekday = [
   'Sunday',
   'Monday',
   'Tuesday',
@@ -36,6 +36,15 @@ const weekdayNbrToWeekday = [
   'Saturday'
 ];
 
+const weekdayToWeekdaynbr : any = {
+  'Sunday' : 0,
+  'Monday' : 1,
+  'Tuesday' : 2,
+  'Wednesday' : 3,
+  'Thursday' : 4,
+  'Friday': 5,
+  'Saturday' : 6
+};
 
 const BASE_ELEMENT_DATA: any[] = [
   {position: 1, time: "05-06"},
@@ -81,9 +90,9 @@ export class BookingTableComponent {
 
   toggleCell(time : string, day : string, isBooked : boolean): void {
     if(!isBooked) {
-  //      const testDate = moment().day(weekday_nbr).week(moment(date, 'YYYY-MM-DD').week());
-  //      const formatted = moment(testDate).format('YYYY-MM-DD');
-        this.router.navigate(['/booking-confirmation', this.activeSport, time, day]);
+        const date = moment().day(weekdayToWeekdaynbr[day]).week(this.currentWeek);
+        const formattedDate = moment(date).format('YYYY-MM-DD');
+        this.router.navigate(['/booking-confirmation', this.activeSport, time, formattedDate]);
       } else {
 
     }
@@ -106,7 +115,7 @@ export class BookingTableComponent {
             let index = timeToIndex[time];
             let weekday_nbr = new Date(date).getDay();
             //Get the weekday
-            let week_day = weekdayNbrToWeekday[weekday_nbr];
+            let week_day = weekdaynbrToWeekday[weekday_nbr];
            // const testDate = moment().day(weekday_nbr).week(moment(date, 'YYYY-MM-DD').week());
            // console.log(moment(testDate).format('YYYY-MM-DD'), 'formaterat');
            // console.log(date, ' date')

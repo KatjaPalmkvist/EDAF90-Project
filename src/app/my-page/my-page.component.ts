@@ -15,6 +15,7 @@ export class MyPageComponent implements OnInit {
     constructor() { 
 
     }
+    
     ngOnInit() {
         rest.getUserBookings(rest.getCurrentUser().uid).then((res: any) => {
             this.userBookings = res;

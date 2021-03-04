@@ -15,20 +15,16 @@
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="mr-auto">
-                                {{day}}: {{sport}} {{time}}
+                                {{date}}: {{sport}} {{time}}
                             </div>
                             <div class="ml-auto">
-                                <button class="btn btn-outline-danger">Avbryt bokning</button>
+                                <button class="btn btn-outline-danger" (click)="abortBooking()">Avbryt bokning</button>
                                 <div class="divider"></div>
-                                <button class="btn btn-outline-success">Bekräfta bokning</button>
+                                <button class="btn btn-outline-success" (click)="confirmBooking()">Bekräfta bokning</button>
                             </div>
                         </div>
-
                     </div>
-                
             </li>
-            
-
         </ul>
     </div>
 </div>

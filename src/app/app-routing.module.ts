@@ -15,7 +15,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent, canActivate: [LoginGuard]},
   {path: 'booking', component: BookingTableComponent},
   {path: 'register', component: RegisterComponent, canActivate: [LoginGuard]},
-  {path: 'booking-confirmation/:sport/:time/:day', component: BookingConfirmationComponent},
+  {path: 'booking-confirmation/:sport/:time/:date', component: BookingConfirmationComponent, canActivate: [AuthGuard]},
   {path: 'mypage', component: MyPageComponent, canActivate: [AuthGuard]},
   {path: 'home', component: HomePageComponent}, 
   {path: '', pathMatch: 'full', redirectTo: '/home'},
