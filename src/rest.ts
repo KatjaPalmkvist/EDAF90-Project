@@ -39,7 +39,7 @@ type Booking = {
 
 
 
-export const rest: {register(credentials: Credentials): Promise<Object>, 
+export const rest: {register(credentials: Credentials): Promise<User>, 
                     login(credentials: Credentials): Promise<User>, 
                     logout(): Promise<boolean>,
                     getCurrentUser(): User, 
@@ -58,7 +58,7 @@ export const rest: {register(credentials: Credentials): Promise<Object>,
             })
             .catch((error: any) => { 
                 console.log(error.message);
-                return {};
+                return {email:"", uid:""};
             })
         
         return await result;
