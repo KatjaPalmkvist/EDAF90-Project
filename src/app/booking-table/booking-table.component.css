@@ -72,7 +72,17 @@ table {
 }
 
 .week {
-    width: 14%;
-    margin-left: auto;
-    margin-right: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.outdated {
+    background-color: #747474;
+    color: white;
+}
+
+.outdated:hover {
+    background-color: black;
+    cursor: default;
 }

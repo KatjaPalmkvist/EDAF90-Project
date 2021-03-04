@@ -89,7 +89,7 @@ export class BookingTableComponent {
   }
 
   toggleCell(time : string, day : string, isBooked : boolean): void {
-    if(!isBooked) {
+    if(!isBooked && !this.isOutdated(day)) {
         const date = moment().day(weekdayToWeekdaynbr[day]).week(this.currentWeek);
         const formattedDate = moment(date).format('YYYY-MM-DD');
         if (rest.getCurrentUser().uid) {
@@ -126,10 +126,6 @@ export class BookingTableComponent {
       this.currentWeek--;
       this.getBooking(ELEMENT_DATA_SPORTS[this.activeSport]);
     }
-
-    //moment(curr.getDate(), '')
-    //if(this.currentWeek >= )
-    //this.currentWeek--;
   }
 
   getBooking = async (sport: Sport) => {
@@ -150,6 +146,17 @@ export class BookingTableComponent {
     }).then(x => {
       this.dataSource = ELEMENT_DATA;
     });
+  }
+
+  isOutdated = (day : string) => {
+    const date = moment().day(weekdayToWeekdaynbr[day]).week(this.currentWeek);
+    const cellDate = moment(date).format('YYYY-MM-DD');
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
+    let yyyy = today.getFullYear();
+    let dateToday = yyyy + '-' + mm + '-' + dd;
+    return cellDate < dateToday;
   }
 
 }

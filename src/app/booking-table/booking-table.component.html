@@ -1,4 +1,3 @@
-
 <mat-tab-group mat-stretch-tabs (selectedTabChange)="clickedTab($event)">
   <mat-tab label="Tennis"> Tennis </mat-tab>
   <mat-tab label="Padel"> Padel </mat-tab>
@@ -6,23 +5,25 @@
 </mat-tab-group>
 
 <div class="week">
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item" (click)="changeWeek('dec')">
-      <a class="page-link" aria-label="Previous">
-        <h3><span aria-hidden="true">&laquo;</span></h3>
-        <span class="sr-only">Previous</span>
-      </a>
-    </li>
-    <li class="page-item"><a class="page-link"><h3>Vecka {{currentWeek}}</h3></a></li>
-    <li class="page-item" (click)="changeWeek('inc')">
-      <a class="page-link" aria-label="Next">
-        <h3><span aria-hidden="true">&raquo;</span></h3>
-        <span class="sr-only">Next</span>
-      </a>
-    </li>
-  </ul>
-</nav>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item" (click)="changeWeek('dec')">
+        <a class="page-link" aria-label="Previous">
+          <h3><span aria-hidden="true">&laquo;</span></h3>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+      <li class="page-item"><a class="page-link">
+          <h3>Vecka {{currentWeek}}</h3>
+        </a></li>
+      <li class="page-item" (click)="changeWeek('inc')">
+        <a class="page-link" aria-label="Next">
+          <h3><span aria-hidden="true">&raquo;</span></h3>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
 </div>
 
 
@@ -42,13 +43,15 @@
     <th mat-header-cell *matHeaderCellDef> Måndag </th>
     <ng-container>
       <td mat-cell *matCellDef="let element" [ngClass]="{
+          'outdated' : isOutdated('Monday') === true,
           'available' : element.Monday === undefined || element.Monday === false ,
           'booked' : element.Monday === true
-       }" (click) = "toggleCell(element.time, 'Monday', element.Monday)">
-        <h3>
-          <div *ngIf="element.Monday===true; else elseBlock">Bokad</div>
-          <ng-template #elseBlock>Ledig tid!</ng-template>
-        </h3>
+       }" (click)="toggleCell(element.time, 'Monday', element.Monday)">
+        <h4>
+          <div *ngIf="isOutdated('Monday')=== true; else elseBlock">X</div>
+          <ng-template #elseBlock><div *ngIf="element.Monday===true; else lastBlock">Bokad!</div></ng-template>
+          <ng-template #lastBlock>Ledig tid!</ng-template>
+        </h4>
       </td>
     </ng-container>
   </ng-container>
@@ -58,13 +61,15 @@
     <th mat-header-cell *matHeaderCellDef> Tisdag </th>
     <ng-container>
       <td mat-cell *matCellDef="let element" [ngClass]="{
+          'outdated' : isOutdated('Tuesday') === true,
           'available' : element.Tuesday === undefined || element.Tuesday === false ,
           'booked' : element.Tuesday === true
-       }" (click) = "toggleCell(element.time, 'Tuesday', element.Tuesday)">
-        <h3>
-          <div *ngIf="element.Tuesday===true; else elseBlock">Bokad</div>
-          <ng-template #elseBlock>Ledig tid!</ng-template>
-        </h3>
+       }" (click)="toggleCell(element.time, 'Tuesday', element.Tuesday)">
+        <h4>
+          <div *ngIf="isOutdated('Tuesday')=== true; else elseBlock">X</div>
+          <ng-template #elseBlock><div *ngIf="element.Tuesday===true; else lastBlock">Bokad!</div></ng-template>
+          <ng-template #lastBlock>Ledig tid!</ng-template>
+        </h4>
 
       </td>
     </ng-container>
@@ -75,13 +80,15 @@
     <th mat-header-cell *matHeaderCellDef> Onsdag </th>
     <ng-container>
       <td mat-cell *matCellDef="let element" [ngClass]="{
+        'outdated' : isOutdated('Wednesday') === true,
           'available' : element.Wednesday === undefined || element.Wednesday === false ,
           'booked' : element.Wednesday === true
-       }" (click) = "toggleCell(element.time, 'Wednesday', element.Wednesday)">
-        <h3>
-          <div *ngIf="element.Wednesday===true; else elseBlock">Bokad</div>
-          <ng-template #elseBlock>Ledig tid!</ng-template>
-        </h3>
+       }" (click)="toggleCell(element.time, 'Wednesday', element.Wednesday)">
+        <h4>
+          <div *ngIf="isOutdated('Wednesday')=== true; else elseBlock">X</div>
+          <ng-template #elseBlock><div *ngIf="element.Wednesday===true; else lastBlock">Bokad!</div></ng-template>
+          <ng-template #lastBlock>Ledig tid!</ng-template>
+        </h4>
       </td>
     </ng-container>
   </ng-container>
@@ -91,13 +98,15 @@
     <th mat-header-cell *matHeaderCellDef> Torsdag </th>
     <ng-container>
       <td mat-cell *matCellDef="let element" [ngClass]="{
+        'outdated' : isOutdated('Thursday') === true,
           'available' : element.Thursday === undefined || element.Wednesday === false ,
           'booked' : element.Thursday === true
-       }" (click) = "toggleCell(element.time, 'Thursday', element.Thursday)">
-        <h3>
-          <div *ngIf="element.Thursday===true; else elseBlock">Bokad</div>
-          <ng-template #elseBlock>Ledig tid!</ng-template>
-        </h3>
+       }" (click)="toggleCell(element.time, 'Thursday', element.Thursday)">
+        <h4>
+          <div *ngIf="isOutdated('Thursday')=== true; else elseBlock">X</div>
+          <ng-template #elseBlock><div *ngIf="element.Thursday===true; else lastBlock">Bokad!</div></ng-template>
+          <ng-template #lastBlock>Ledig tid!</ng-template>
+        </h4>
       </td>
     </ng-container>
   </ng-container>
@@ -107,13 +116,15 @@
     <th mat-header-cell *matHeaderCellDef> Fredag </th>
     <ng-container>
       <td mat-cell *matCellDef="let element" [ngClass]="{
+        'outdated' : isOutdated('Friday') === true,
           'available' : element.Friday === undefined || element.Friday === false ,
           'booked' : element.Friday=== true
-       }" (click) = "toggleCell(element.time, 'Friday', element.Friday)">
-        <h3>
-          <div *ngIf="element.Friday===true; else elseBlock">Bokad</div>
-          <ng-template #elseBlock>Ledig tid!</ng-template>
-        </h3>
+       }" (click)="toggleCell(element.time, 'Friday', element.Friday)">
+        <h4>
+          <div *ngIf="isOutdated('Friday')=== true; else elseBlock">X</div>
+          <ng-template #elseBlock><div *ngIf="element.Friday===true; else lastBlock">Bokad!</div></ng-template>
+          <ng-template #lastBlock>Ledig tid!</ng-template>
+        </h4>
       </td>
     </ng-container>
   </ng-container>
@@ -123,13 +134,15 @@
     <th mat-header-cell *matHeaderCellDef> Lördag </th>
     <ng-container>
       <td mat-cell *matCellDef="let element" [ngClass]="{
+        'outdated' : isOutdated('Saturday') === true,
           'available' : element.Saturday === undefined || element.Friday === false ,
           'booked' : element.Saturday === true
-       }" (click) = "toggleCell(element.time, 'Saturday', element.Saturday)">
-        <h3>
-          <div *ngIf="element.Saturday===true; else elseBlock">Bokad</div>
-          <ng-template #elseBlock>Ledig tid!</ng-template>
-        </h3>
+       }" (click)="toggleCell(element.time, 'Saturday', element.Saturday)">
+        <h4>
+          <div *ngIf="isOutdated('Saturday')=== true; else elseBlock">X</div>
+          <ng-template #elseBlock><div *ngIf="element.Saturday===true; else lastBlock">Bokad!</div></ng-template>
+          <ng-template #lastBlock>Ledig tid!</ng-template>
+        </h4>
       </td>
     </ng-container>
   </ng-container>
@@ -139,13 +152,15 @@
     <th mat-header-cell *matHeaderCellDef> Söndag </th>
     <ng-container>
       <td mat-cell *matCellDef="let element" [ngClass]="{
+        'outdated' : isOutdated('Sunday') === true,
           'available' : element.Sunday === undefined || element.Sunday === false ,
           'booked' : element.Sunday === true
-       }" (click) = "toggleCell(element.time, 'Sunday', element.Sunday)">
-        <h3>
-          <div *ngIf="element.Sunday===true; else elseBlock">Bokad</div>
-          <ng-template #elseBlock>Ledig tid!</ng-template>
-        </h3>
+       }" (click)="toggleCell(element.time, 'Sunday', element.Sunday)">
+        <h4>
+          <div *ngIf="isOutdated('Sunday')=== true; else elseBlock">X</div>
+          <ng-template #elseBlock><div *ngIf="element.Sunday===true; else lastBlock">Bokad!</div></ng-template>
+          <ng-template #lastBlock>Ledig tid!</ng-template>
+        </h4>
       </td>
     </ng-container>
   </ng-container>
