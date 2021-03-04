@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { rest } from 'src/rest'
+import { rest, Sport } from 'src/rest'
 
 @Component({
     selector: 'app-my-page',
@@ -31,6 +31,22 @@ export class MyPageComponent implements OnInit {
             })
             
 
+        })
+        
+
+    }
+
+    removeBooking(date: string, sport: string, time: string) {
+        rest.removeBooking(rest.getCurrentUser().uid, {date, time, sport: Sport[sport as keyof typeof Sport]}).then(res => {
+            console.log(res);
+
+            this.userBookings[date][sport] = this.userBookings[date][sport].filter(t => t !== time);
+            if (Object.keys(this.userBookings[date]).length === 1 && this.userBookings[date][sport].length === 0) {
+                delete this.userBookings[date];
+            }
+            if (Object.keys(this.userBookings[date]).length > 1 && this.userBookings[date][sport].length === 0){
+                delete this.userBookings[date][sport];
+            }
         })
         
 
