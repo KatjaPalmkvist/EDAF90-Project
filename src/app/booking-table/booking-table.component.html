@@ -1,13 +1,29 @@
-<!-- <select class="form-control" id="dropdownSports">
-  <option selected = "selected" disabled>Välj en sport</option>
-  <option *ngFor="let elem of sports">{{elem.sport}}</option>
-</select> -->
 
 <mat-tab-group mat-stretch-tabs (selectedTabChange)="clickedTab($event)">
   <mat-tab label="Tennis"> Tennis </mat-tab>
   <mat-tab label="Padel"> Padel </mat-tab>
   <mat-tab label="Badminton"> Badminton </mat-tab>
 </mat-tab-group>
+
+<div class="week">
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item" (click)="changeWeek('dec')">
+      <a class="page-link" aria-label="Previous">
+        <h3><span aria-hidden="true">&laquo;</span></h3>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link"><h3>Vecka {{currentWeek}}</h3></a></li>
+    <li class="page-item" (click)="changeWeek('inc')">
+      <a class="page-link" aria-label="Next">
+        <h3><span aria-hidden="true">&raquo;</span></h3>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+</div>
 
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">

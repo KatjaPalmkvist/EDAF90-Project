@@ -78,14 +78,14 @@ const ELEMENT_DATA_SPORTS : any = [Sport.tennis , Sport.padel , Sport.badminton]
 export class BookingTableComponent {
   displayedColumns: string[] = ['Tider', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag', 'Söndag'];
   dataSource = BASE_ELEMENT_DATA;
-  activeSport = '';
+  activeSport = 0;
   currentWeek = 9;
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.getBooking(Sport.tennis);
-    this.activeSport = Sport.tennis;
+    this.activeSport = 0;
   }
 
   toggleCell(time : string, day : string, isBooked : boolean): void {
@@ -93,9 +93,9 @@ export class BookingTableComponent {
         const date = moment().day(weekdayToWeekdaynbr[day]).week(this.currentWeek);
         const formattedDate = moment(date).format('YYYY-MM-DD');
         if (rest.getCurrentUser().uid) {
-          this.router.navigate(['/booking-confirmation', this.activeSport, time, formattedDate]);
+          this.router.navigate(['/booking-confirmation', ELEMENT_DATA_SPORTS[this.activeSport], time, formattedDate]);
         } else {
-          this.router.navigate(['/login'], {state: {sport: this.activeSport, time, formattedDate}})
+          this.router.navigate(['/login'], {state: {sport: ELEMENT_DATA_SPORTS[this.activeSport], time, formattedDate}})
         }
       } else {
 
@@ -106,7 +106,30 @@ export class BookingTableComponent {
   clickedTab($event: any): void {
     let sportIndex = $event.index;
     this.getBooking(ELEMENT_DATA_SPORTS[sportIndex]);
-    this.activeSport = ELEMENT_DATA_SPORTS[sportIndex];
+    this.activeSport = sportIndex;
+  }
+
+  changeWeek(arg :string) {
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+
+    let dateToday = yyyy + '-' + mm + '-' + dd;
+    let weekToday = moment(dateToday, 'YYYY-MM-DD',).week();
+    console.log(weekToday);
+
+    if (arg === 'inc' && this.currentWeek < 52) {
+      this.currentWeek++;
+      this.getBooking(ELEMENT_DATA_SPORTS[this.activeSport]);
+    } else if (arg==='dec' && this.currentWeek > 1 ) {
+      this.currentWeek--;
+      this.getBooking(ELEMENT_DATA_SPORTS[this.activeSport]);
+    }
+
+    //moment(curr.getDate(), '')
+    //if(this.currentWeek >= )
+    //this.currentWeek--;
   }
 
   getBooking = async (sport: Sport) => {
@@ -120,9 +143,6 @@ export class BookingTableComponent {
             let weekday_nbr = new Date(date).getDay();
             //Get the weekday
             let week_day = weekdaynbrToWeekday[weekday_nbr];
-           // const testDate = moment().day(weekday_nbr).week(moment(date, 'YYYY-MM-DD').week());
-           // console.log(moment(testDate).format('YYYY-MM-DD'), 'formaterat');
-           // console.log(date, ' date')
             ELEMENT_DATA[index][week_day] = true;
           })
         }

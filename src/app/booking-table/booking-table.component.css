@@ -18,7 +18,7 @@
 }
 
 .booked {
-    background-color: #FF6700;
+    background-color: #ED9728;
     color: black;
 }
 
@@ -38,13 +38,13 @@
 }
 
 .available {
-    background-color: #5bc0de;
+    background-color: #5bc713;
     color: white;
     cursor: pointer;
 }
 
 .available:hover {
-    background-color: #454bfa;
+    background-color: #357a06;
 }
 
 table {
@@ -55,14 +55,6 @@ table {
 
 .bookButton {
     color: black;
-}
-
-#dropdownSports {
-    margin-bottom: 20px;
-    width:10%;
-    margin-left: 10%;
-    background-color: #7b7a7e ;
-    color: white;
 }
 
 ::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
@@ -77,4 +69,10 @@ table {
     font-size:17px;
     text-decoration: solid;
     background-color: transparent;
+}
+
+.week {
+    width: 14%;
+    margin-left: auto;
+    margin-right: auto;
 }
