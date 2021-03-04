@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { rest, Sport } from 'src/rest'
-rest.login({username: "pingvinkatten@gmail.com", password: "Kaffebanan"});
-//rest.logout()
 
 @Component({
     selector: 'app-my-page',
