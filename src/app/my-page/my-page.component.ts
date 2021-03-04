@@ -22,7 +22,3 @@ export class MyPageComponent implements OnInit {
 
     }
 }
-
-function hej(date: string, time: string, sport: Sport) {
-    return `<div>${date}</div>`
-}

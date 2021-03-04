@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import {rest} from "src/rest";
-//rest.register({username: "katja@gmail.com", password: "password"});
-//rest.logout();
 
 
 @Component({
