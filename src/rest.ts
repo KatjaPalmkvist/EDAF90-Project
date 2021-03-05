@@ -56,9 +56,9 @@ export const rest: {register(credentials: Credentials): Promise<User>,
                 let user = userCredentials.user;
                 return {uid: user.uid, email: user.email};
             })
-            .catch((error: any) => { 
-                console.log(error.message);
-                return {email:"", uid:""};
+            .catch((error) => { 
+                throw error;
+                //return {email:"", uid:""};
             })
         
         return await result;

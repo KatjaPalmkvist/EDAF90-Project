@@ -12,6 +12,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   public match: boolean;
   userExists: boolean = false;
+  validEmail: boolean = true;
 
   constructor(private fb: FormBuilder, private router: Router) { 
     this.createForm();
@@ -33,14 +34,19 @@ export class RegisterComponent implements OnInit {
   onSubmit(): void {
     if(this.f.password.value === this.f.repeat.value) {
       this.match = true;
+      this.userExists = false;
+      this.validEmail = true;
       rest.register({username: this.f.userName.value, 
         password: this.f.password.value}).then(res => {
           console.log(res)
           if (res.email) {
             this.router.navigate(['/mypage']);
-          } else {
-            console.log("User already exist");
+          } 
+        }).catch(error => {
+          if (error.code === "auth/email-already-in-use") {
             this.userExists = true;
+          } else if (error.code === "auth/invalid-email") {
+            this.validEmail = false;
           }
         });
     } else {
