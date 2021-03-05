@@ -79,13 +79,21 @@ export class BookingTableComponent {
   displayedColumns: string[] = ['Tider', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag', 'Söndag'];
   dataSource = BASE_ELEMENT_DATA;
   activeSport = 0;
-  currentWeek = 9;
+  currentWeek = 1;
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.getBooking(Sport.tennis);
     this.activeSport = 0;
+
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+    let dateToday = yyyy + '-' + mm + '-' + dd;
+    let weekToday = moment(dateToday, 'YYYY-MM-DD',).week();
+    this.currentWeek = weekToday;
   }
 
   toggleCell(time : string, day : string, isBooked : boolean): void {
@@ -97,10 +105,7 @@ export class BookingTableComponent {
         } else {
           this.router.navigate(['/login'], {state: {sport: ELEMENT_DATA_SPORTS[this.activeSport], time, formattedDate}})
         }
-      } else {
-
-    }
-    
+      }    
   }
   
   clickedTab($event: any): void {
